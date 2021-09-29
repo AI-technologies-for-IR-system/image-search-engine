@@ -5,7 +5,7 @@ This project is about creating image search engine for the discipline "Artificia
 ## Team and roles
 
 Here is our squad and roles:
-| № | Surname and name | Academic group | GitHub nickname | Role |
+| № | Surname and name | Academic group | GitHub username | Role |
 | --- | --- | --- | --- | --- | 
 | 1 | Кравчук Аркадій | КП-11мн | [@akrava](https://github.com/akrava) | team lead |
 | 2 | Песчанський Даниїл | КП-11мн | [@danya-psch](https://github.com/danya-psch) | developer |
