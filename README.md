@@ -2,6 +2,10 @@
 
 This project is about creating image search engine for the discipline "Artificial intelligence technologies for information retrieval system".
 
+## Technical task
+
+TODO
+
 ## Team and roles
 
 Here is our squad and roles:
