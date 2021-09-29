@@ -2,6 +2,18 @@
 
 This project is about creating image search engine for the discipline "Artificial intelligence technologies for information retrieval system".
 
+## General information
+
+GitHub Projects was chosen as project management system. Here is a link to [project board](https://github.com/orgs/AI-technologies-for-IR-system/projects/3).
+
+All info related to this course project is located in [AI technologies for IR system](https://github.com/AI-technologies-for-IR-system) organization.
+
+The team, which is working on this project, is called [The best of KP ](https://github.com/orgs/AI-technologies-for-IR-system/teams/the-best-of-kp).
+
+Main repository of this project: [image-search-engine](https://github.com/AI-technologies-for-IR-system/image-search-engine).
+
+Maybe in the future there will be created many repositories for this project, so here is [the full list of repositories](https://github.com/orgs/AI-technologies-for-IR-system/repositories), dedicated to this project.
+
 ## Technical task
 
 ### Official document
