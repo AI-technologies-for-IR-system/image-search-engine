@@ -39,6 +39,7 @@ Here is a list of non-functional requirements for this project:
 ## Team
 
 Here is our squad and roles:
+
 | № | Surname and name | Academic group | GitHub username | Role |
 | --- | --- | --- | --- | --- | 
 | 1 | Кравчук Аркадій | КП-11мн | [@akrava](https://github.com/akrava) | team lead |
