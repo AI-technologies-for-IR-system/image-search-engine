@@ -1,4 +1,4 @@
-# Система пошуку породи собаки по його зоображенню
+# Система пошуку породи собаки по його зображенню
 
 This project is about creating image search engine for the discipline "Artificial intelligence technologies for information retrieval system".
 
