@@ -8,9 +8,13 @@ GitHub Projects was chosen as project management system. Here is a link to [proj
 
 All info related to this course project is located in [AI technologies for IR system](https://github.com/AI-technologies-for-IR-system) organization.
 
-The team, which is working on this project, is called [The best of KP ](https://github.com/orgs/AI-technologies-for-IR-system/teams/the-best-of-kp).
-
 Main repository of this project: [image-search-engine](https://github.com/AI-technologies-for-IR-system/image-search-engine).
+
+In the main repository we can see [current open issues](https://github.com/AI-technologies-for-IR-system/image-search-engine/issues) (tasks) for this project.
+
+There are [milestones](https://github.com/AI-technologies-for-IR-system/image-search-engine/milestones) - deadlines. We can see all linked issues to them, due date and overall progress of concrete milestone.
+
+New changes in the codebase are introduced by pull requests (PR). Here we can see [the list of all opened pull requests](https://github.com/AI-technologies-for-IR-system/image-search-engine/pulls).
 
 Maybe in the future there will be created many repositories for this project, so here is [the full list of repositories](https://github.com/orgs/AI-technologies-for-IR-system/repositories), dedicated to this project.
 
