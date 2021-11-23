@@ -35,6 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "client:deploy": "sls client deploy --no-config-change --no-policy-change --no-cors-change",
     "client:deploy:nc": "npm run client:deploy -- --no-confirm",
     "client:build:deploy": "npm run build && npm run client:deploy",
@@ -66,6 +67,7 @@
     ]
   },
   "devDependencies": {
+    "prettier": "^2.4.1",
     "serverless": "^2.40.0",
     "serverless-finch": "^2.6.0",
     "typescript": "^4.5.2"
