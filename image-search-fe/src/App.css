@@ -59,7 +59,7 @@
   position: absolute;
   font-size: 30px;
   font-style: italic;
-  font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: charter, Georgia, Cambria, 'Times New Roman', Times, serif;
   color: whitesmoke;
   font-weight: bold;
   text-transform: capitalize;
@@ -75,7 +75,7 @@
 }
 
 .App-shevron {
-  font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: charter, Georgia, Cambria, 'Times New Roman', Times, serif;
   color: whitesmoke;
   font-weight: bold;
   position: absolute;
@@ -149,7 +149,9 @@ code {
   margin-right: 5px;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 

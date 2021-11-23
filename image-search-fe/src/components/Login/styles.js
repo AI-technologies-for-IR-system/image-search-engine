@@ -6,12 +6,12 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    minHeight: 'calc(100% - 128px)'
+    minHeight: 'calc(100% - 128px)',
   },
   loginTitle: {
     textAlign: 'center',
     fontSize: '35px',
-    textShadow: '1px 1px white'
+    textShadow: '1px 1px white',
   },
   loginForm: {
     width: '500px',
@@ -24,13 +24,13 @@ const styles = {
     marginBottom: '15px',
     '& .MuiInputBase-root': {
       background: 'white',
-    }
+    },
   },
   passwordField: {
     marginBottom: '5px',
-   '& .MuiInputBase-root': {
+    '& .MuiInputBase-root': {
       background: 'white',
-    }
+    },
   },
   submit: {
     width: '200px',
@@ -56,8 +56,8 @@ const styles = {
     '&:hover': {
       background: 'none',
       textDecoration: 'underline',
-    }
-  }
-};
+    },
+  },
+}
 
-export default styles;
+export default styles

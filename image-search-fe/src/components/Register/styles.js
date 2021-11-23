@@ -12,7 +12,7 @@ const styles = {
   registerTitle: {
     textAlign: 'center',
     fontSize: '35px',
-    textShadow: '1px 1px white'
+    textShadow: '1px 1px white',
   },
   registerForm: {
     width: '500px',
@@ -25,25 +25,25 @@ const styles = {
     marginBottom: '15px',
     '& .MuiInputBase-root': {
       background: 'white',
-    }
+    },
   },
   lastName: {
     marginBottom: '15px',
     '& .MuiInputBase-root': {
       background: 'white',
-    }
+    },
   },
   firstName: {
     marginBottom: '15px',
     '& .MuiInputBase-root': {
       background: 'white',
-    }
+    },
   },
   passwordField: {
     marginBottom: '15px',
     '& .MuiInputBase-root': {
       background: 'white',
-    }
+    },
   },
   submit: {
     width: '200px',
@@ -69,8 +69,8 @@ const styles = {
     '&:hover': {
       background: 'none',
       textDecoration: 'underline',
-    }
-  }
-};
+    },
+  },
+}
 
-export default styles;
+export default styles

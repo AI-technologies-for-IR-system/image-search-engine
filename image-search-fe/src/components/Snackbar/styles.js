@@ -4,8 +4,8 @@ const styles = {
     width: '40vw',
     minWidth: '500px',
     borderWidth: '1px',
-    borderStyle: 'solid'
+    borderStyle: 'solid',
   },
-};
+}
 
-export default styles;
+export default styles

@@ -14,12 +14,12 @@ const styles = {
   },
   logo: {
     margin: '5px',
-    maxWidth: '100%'
+    maxWidth: '100%',
   },
   commands: {
     display: 'flex',
-    flexDirection: 'column'
-  }
-};
+    flexDirection: 'column',
+  },
+}
 
-export default styles;
+export default styles

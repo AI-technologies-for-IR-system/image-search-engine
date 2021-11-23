@@ -1,11 +1,11 @@
-import './Shevron.css';
+import './Shevron.css'
 
-const Shevron = ({message}) => (
+const Shevron = ({ message }) => (
   <div class="container">
     <div class="chevron"></div>
     <div class="chevron"></div>
     <div class="chevron"></div>
   </div>
-);
+)
 
-export default Shevron;
+export default Shevron

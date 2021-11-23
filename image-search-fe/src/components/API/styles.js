@@ -5,8 +5,8 @@ const styles = {
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
-    minHeight: 'calc(100% - 128px)'
+    minHeight: 'calc(100% - 128px)',
   },
-};
+}
 
-export default styles;
+export default styles

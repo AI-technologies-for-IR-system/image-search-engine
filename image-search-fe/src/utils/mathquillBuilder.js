@@ -1,7 +1,7 @@
-import 'mathquill/build/mathquill';
-import 'mathquill/build/mathquill.css';
+import 'mathquill/build/mathquill'
+import 'mathquill/build/mathquill.css'
 
-const MathQuill = window.MathQuill;
-const MQ = MathQuill.getInterface(2);
+const MathQuill = window.MathQuill
+const MQ = MathQuill.getInterface(2)
 
-export default MQ;
+export default MQ

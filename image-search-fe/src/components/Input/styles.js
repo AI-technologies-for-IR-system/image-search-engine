@@ -1,11 +1,10 @@
 const styles = {
   input: {
     width: '100px',
-
   },
   label: {
-    fontSize: '15px'
-  }
-};
+    fontSize: '15px',
+  },
+}
 
-export default styles;
+export default styles
