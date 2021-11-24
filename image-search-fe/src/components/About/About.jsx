@@ -17,24 +17,26 @@ function Main() {
       <div className="App-content" ref={contentRef}>
         <div className="App-content-article">
           <img
-            src="/pen.jpeg"
+            src="./dog1.jfif"
             alt="Math and pen"
             width="500px"
             height="280px"
           />
           <span className="App-article">
             <b className="App-article-letter">Д</b>аний вебсервіс призначений
-            для представлення неявно заданих функцій у явній формі. Отриманий
-            результат дозволяє з певною високою точністю апроксимувати неявні
-            функції, що робить їх зручними для досліджень.
+            для є гарним прикладом рішення задачі класифікації на прикладі 
+            визначення породи собаки за її фотографією.
           </span>
         </div>
         <div className="App-content-article">
           <div className="App-article-container">
             <span className="App-article">
-              <b className="App-article-letter">T</b>акож, користуючись даним
-              сервісом, ви можете зообразити функції, зберігати попередні
-              представлення та відновлювати їх.
+              <b className="App-article-letter">В</b>икористовуючи алгоритми машинного 
+            навчання, а також потужний датасет із більш ніж 130 різними видами породи,
+            нашою командою розроюників була натренована нейронна мережа, що дозволяє 
+            дізнатися користувачу породу собаки із фотографії, а також отримати так 
+            звануц "впевненість" мережі у своєму виборі - належність до того чи іншого 
+            класу у відсотковому еквіваленті. 
             </span>
             <span className="App-start">Почніть прямо зараз!</span>
             <div className="App-actions">
@@ -42,10 +44,10 @@ function Main() {
                 variant="outlined"
                 color="primary"
                 component={RouterLink}
-                to="/calculator"
+                to="/search-page"
                 className={classes.calc}
               >
-                Перейти до калькулятора
+                Перейти до пошуку
               </Button>
               {loggedIn ? null : (
                 <>
@@ -65,7 +67,7 @@ function Main() {
               )}
             </div>
           </div>
-          <img src="/Sextic_Graph.340.png" alt="Math and pen" />
+          {/* <img src="/Sextic_Graph.340.png" alt="Math and pen" /> */}
         </div>
       </div>
     </div>

@@ -31,9 +31,6 @@ function Main() {
           <div>Дізнатись більше</div>
         </div>
       </div>
-      {/* <p className="App-title">
-        Представлення неявно заданих функцій <br /> у явній формі
-      </p> */}
       <div className="App-content" ref={contentRef}>
         <div className="App-content-article">
           <img
