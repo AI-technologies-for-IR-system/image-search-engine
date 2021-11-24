@@ -25,12 +25,21 @@ function* doPictureSearch({ payload }) {
 }
 
 function* doTextSearch({ payload }) {
-  if (!payload.dogname) return // TODO: error
-  // TODO: request from BE with payload
-  const response = { photos: PhotosMock }
+  const url = new URL(urls.searchBreedByText);
+  url.searchParams.append('name', payload.dogname);
 
-  yield put(setBreedName(payload.dogname))
-  yield put(setPhotos(response.photos))
+  const { status: _, response } = yield call(api.get, url.toString())
+
+  yield put(
+    setBreedName(response.data.name.replace('_', ' ')),
+  );
+
+  // if (!payload.dogname) return // TODO: error
+  // TODO: request from BE with payload
+  // const response = { photos: PhotosMock }
+
+  // yield put(setBreedName(payload.dogname))
+  // yield put(setPhotos(response.photos))
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

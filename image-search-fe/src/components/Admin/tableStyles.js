@@ -14,6 +14,7 @@ const styles = {
     borderColor: 'green',
     marginTop: '10px',
     backgroundColor: 'white',
+    marginRight: '5px',
 
     '&:hover': {
       borderColor: 'darkgreen',

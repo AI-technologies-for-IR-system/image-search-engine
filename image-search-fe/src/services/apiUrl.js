@@ -5,7 +5,8 @@ const apiUrls = {
   register: `${base}/auth/register`,
   reports: `${base}/reports`,
   breeds: `${base}/ml/serving/breeds/preview`,
-  predictBreedByPhoto: `${base}/ml/serving/breeds/image/predict'`
+  predictBreedByPhoto: `${base}/ml/serving/breeds/image/predict`,
+  searchBreedByText: `${base}/ml/serving/breeds/names/find`,
 }
 
 export default apiUrls
