@@ -47,6 +47,10 @@ def serve_static_index():
 @app.route('/static/<path:path>') # serve whatever the client requested in the static folder
 def serve_static(path):
     return send_from_directory('../client/build/static/', path)
+
+@app.route('/dataset/<path:path>') # serve whatever the client requested in the static folder
+def serve_static_dataset(path):
+    return send_from_directory('../dataset/dogs_breed/', path)
 ####
 
 
