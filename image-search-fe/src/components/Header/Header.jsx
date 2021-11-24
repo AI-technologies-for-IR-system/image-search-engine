@@ -58,7 +58,7 @@ export function Header() {
             >
               Калькулятор
             </Button>
-            {isAdmin ?? <Button className={classes.link} component={RouterLink} to="/admin">Адмін</Button>}
+            {isAdmin && <Button className={classes.link} component={RouterLink} to="/admin">Адмін</Button>}
             {loggedIn ? (
               <>
                 <Button

@@ -42,8 +42,6 @@ const Admin = () => {
     id,
   }));
 
-  console.log(rows);
-
   return <div>
     <div style={{ margin: "auto", fontSize: 40, width: "0" }}>Admin</div>
     <div>
