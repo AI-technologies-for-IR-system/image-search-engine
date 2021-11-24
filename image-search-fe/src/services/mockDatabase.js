@@ -1,4 +1,16 @@
 export const database = {
+  breeds: [
+    {
+      count: 7,
+      photo: 'https://derpicdn.net/img/2021/11/23/2750996/full.jpg',
+      name: 'Fluttershy'
+    },
+    {
+      photo: 'https://derpicdn.net/img/2021/11/21/2749512/large.png',
+      name: 'TwilightSparkle',
+      count: 9,
+    }
+  ],
   reports: [
     {
       id: '1',

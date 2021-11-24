@@ -57,6 +57,13 @@ export function Header() {
             >
               Калькулятор
             </Button>
+            <Button
+              className={classes.link}
+              component={RouterLink}
+              to="/breeds"
+            >
+              Породи
+            </Button>
             {isAdmin && (
               <Button
                 className={classes.link}
