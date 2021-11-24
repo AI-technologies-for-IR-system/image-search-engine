@@ -6,7 +6,10 @@ const API = () => {
 
   return (
     <div className={classes.loginContent}>
-      <iframe src="https://app.swaggerhub.com/apis-docs/FireAndBlood12/ImplicitExplicit/1.0.0?access-token=edea4c19-b3f2-40d5-b49b-455d94e21ed1"></iframe>
+      <iframe
+        title="API"
+        src="https://app.swaggerhub.com/apis-docs/FireAndBlood12/ImplicitExplicit/1.0.0?access-token=edea4c19-b3f2-40d5-b49b-455d94e21ed1"
+      ></iframe>
     </div>
   )
 }

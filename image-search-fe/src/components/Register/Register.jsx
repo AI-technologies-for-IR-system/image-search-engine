@@ -57,7 +57,7 @@ const Register = () => {
   })
 
   return loggedIn ? (
-    <Redirect to="/calculator" />
+    <Redirect to="/search-page" />
   ) : (
     <div className={classes.registerContent}>
       {errors && !isClosed && (

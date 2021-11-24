@@ -23,7 +23,7 @@ function* registerSaga({ payload }) {
     localStorage.setItem('userLastName', response.userData.lastName)
 
     yield put(setUserData(response.userData))
-    history.push('/calculator')
+    history.push('/search-page')
   } catch (error) {
     yield put(setRegisterErrors(error))
   } finally {

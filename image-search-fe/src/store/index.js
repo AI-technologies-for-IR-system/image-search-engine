@@ -5,6 +5,7 @@ import * as loading from './loading'
 import * as notifications from './notifications'
 import * as user from './user'
 import * as reports from './reports'
+import * as breed from './breed'
 import * as breeds from './breeds'
 
 export default createStore({
@@ -14,7 +15,8 @@ export default createStore({
     user: user.reducer,
     reports: reports.reducer,
     breeds: breeds.reducer,
+    breed: breed.reducer,
   }),
-  sagas: [...user.sagas, ...reports.sagas, ...breeds.sagas],
+  sagas: [...user.sagas, ...reports.sagas, ...breeds.sagas, ...breed.sagas],
   middleware: [],
 })
