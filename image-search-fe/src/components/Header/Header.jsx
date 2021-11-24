@@ -48,7 +48,7 @@ export function Header() {
               variant="h4"
               className={classes.title}
             >
-              ImplicitExplicit
+              DogBreed
             </Typography>
             <Button
               className={classes.link}
