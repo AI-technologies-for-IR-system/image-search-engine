@@ -7,6 +7,7 @@ const apiUrls = {
   transform:
     'https://bdqu75zm6c.execute-api.eu-west-1.amazonaws.com/dev/transform',
   //transform: 'http://localhost:5000/dev/transform',
+  reports: 'https://localhost:5000/dev/reports',
 }
 
 export default apiUrls

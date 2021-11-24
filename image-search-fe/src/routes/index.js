@@ -13,6 +13,7 @@ import Snackbar from '../components/Snackbar/Snackbar'
 import SimpleBackdrop from '../components/SimpleBackdrop/SimpleBackdrop'
 import NotFound from '../components/NotFound/NotFound'
 import ScrollToTop from './scroll'
+import Admin from '../components/Admin/Admin'
 
 const ImplicitExplicitRouter = ({ history }) => (
   <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
@@ -23,6 +24,9 @@ const ImplicitExplicitRouter = ({ history }) => (
     <Switch>
       <Route exact path="/">
         <Main />
+      </Route>
+      <Route path="/admin">
+        <Admin />
       </Route>
       <Route exact path="/login">
         <Login />

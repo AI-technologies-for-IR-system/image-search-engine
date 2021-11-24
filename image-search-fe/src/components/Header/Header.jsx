@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { isLoggedIn } from '../../store/user/selectors'
+import { isLoggedIn, getIsAdmin } from '../../store/user/selectors'
 import { logout } from '../../store/user/slice'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
@@ -34,6 +34,7 @@ export function Header() {
   const classes = useStyles(styles)
   const history = useHistory()
   const loggedIn = useSelector(isLoggedIn)
+  const isAdmin = useSelector(getIsAdmin)
   const dispatch = useDispatch()
 
   return (
@@ -56,6 +57,15 @@ export function Header() {
             >
               Калькулятор
             </Button>
+            {isAdmin && (
+              <Button
+                className={classes.link}
+                component={RouterLink}
+                to="/admin"
+              >
+                Адмін
+              </Button>
+            )}
             {loggedIn ? (
               <>
                 <Button

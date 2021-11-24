@@ -1,4 +1,10 @@
+import * as mocks from './mocks'
+
 async function postData(url = '', data = {}) {
+  if (!global.production) {
+    return mocks.post(url, data)
+  }
+
   const userAuthToken = localStorage.getItem('userAuthToken')
   const token = sessionStorage.getItem('userAuthToken')
 
@@ -18,6 +24,10 @@ async function postData(url = '', data = {}) {
 }
 
 async function getData(url = '') {
+  if (!global.production) {
+    return mocks.get(url)
+  }
+
   const userAuthToken = localStorage.getItem('userAuthToken')
   const token = sessionStorage.getItem('userAuthToken')
 

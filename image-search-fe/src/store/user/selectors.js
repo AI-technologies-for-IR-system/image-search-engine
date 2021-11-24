@@ -4,6 +4,8 @@ export const getUser = (state) => state.user
 
 export const getUserData = createSelector(getUser, (root) => root.user)
 
+export const getIsAdmin = createSelector(getUserData, (root) => root?.isAdmin)
+
 export const getLoginErrors = createSelector(
   getUser,
   (root) => root.loginErrors,
