@@ -23,5 +23,3 @@ class UsersModel:
             return user
         return None
 
-
-

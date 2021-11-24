@@ -4,7 +4,7 @@ import psycopg2
 from datetime import date
 from flask_jwt_extended import (
     jwt_required, create_access_token,
-    jwt_refresh_token_required, create_refresh_token,
+    create_refresh_token,
     get_jwt_identity, set_access_cookies,
     set_refresh_cookies, unset_jwt_cookies
 )
@@ -16,6 +16,7 @@ from config import other_configs
 from flask_jwt_extended import JWTManager
 jwt = JWTManager()
 from blueprints.annotations.roles_required import roles_required
+
 
 
 user_model = UsersModel()
@@ -80,7 +81,7 @@ def login():
 
 
 @auth.route('/refresh', methods=['POST'])
-@jwt_refresh_token_required
+# @jwt_refresh_token_required
 def refresh():
     current_user = get_jwt_identity()
     access_token = create_access_token(identity=current_user)
@@ -95,6 +96,8 @@ def logout():
     resp = jsonify({'logout': True})
     unset_jwt_cookies(resp)
     return resp, 200
+
+
 
 
 # @auth.route('/protected', methods=['GET'])
