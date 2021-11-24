@@ -18,34 +18,33 @@ jwt = JWTManager()
 from blueprints.annotations.roles_required import roles_required
 
 
-# user_model = UsersModel(PostgresConnection().get_connection())
+
+user_model = UsersModel()
 
 auth = Blueprint('auth', __name__)
 
 
 @auth.route('/register', methods=['POST'])
 def register():
-    if not request.is_json:
-        return jsonify({"msg": "Missing JSON in request"}), 400
-
-    name = request.json.get('name', None)
-    role = request.json.get('role', None)
-    date_registration = date.today()
-    username = request.json.get('username', "")
-    password = request.json.get('password', "")
-    date_last_update = date_registration
+    firstName = request.form.get('firstName', None)
+    lastName = request.form.get('lastName', None)
+    email = request.form.get('email', None)
+    password = request.form.get('password', None)
+    isAdmin = request.form.get('isAdmin', None)
     salt = uuid.uuid4().hex
 
+    if not firstName or not lastName or not email or not password or not isAdmin:
+        return jsonify({"msg": "Missing some parameter"}), 400
+
+    password_with_salt = password + salt
     try:
-        returned_data = user_model.create({
-            "name": name,
-            "role": role,
-            "date_registration": date_registration,
-            "username": username,
-            "pwd_hash": password,
-            "pwd_salt": salt,
-            "date_last_update": date_last_update,
-            "status": True
+        user_model.create({
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email,
+            "pwHash": hashlib.sha512(password_with_salt.encode('utf-8')).hexdigest(),
+            "pwdSalt": salt,
+            "isAdmin": isAdmin
         })
     except Exception as e:
         return jsonify({"msg": str(e)}), 400
@@ -55,29 +54,26 @@ def register():
 
 @auth.route('/login', methods=['POST'])
 def login():
-    if not request.is_json:
-        return jsonify({"msg": "Missing JSON in request"}), 400
-
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
-    if not username:
-        return jsonify({"msg": "Missing username parameter"}), 400
+    email = request.form.get('email', None)
+    password = request.form.get('password', None)
+    if not email:
+        return jsonify({"msg": "Missing email parameter"}), 400
     if not password:
         return jsonify({"msg": "Missing password parameter"}), 400
 
-    row = user_model.read({"username": username})
+    user = user_model.get({"email": email})
 
-    if row is None:
+    if user is None:
         return jsonify({"msg": "No such user"}), 401
 
-    password_with_salt = password + row.get("pwd_salt", "")
-    if row["pwd_hash"] == hashlib.sha512(password_with_salt.encode('utf-8')).hexdigest():
+    password_with_salt = password + user["pwdSalt"]
+    if user["pwHash"] == hashlib.sha512(password_with_salt.encode('utf-8')).hexdigest():
 
-        access_token = create_access_token(identity=row)
-        refresh_token = create_refresh_token(identity=row)
+        access_token = create_access_token(identity=user)
+        # refresh_token = create_refresh_token(identity=user)
         resp = jsonify({
             'token': access_token,
-            'user': row
+            'userData': user
         })
         return resp, 200
     else:
@@ -102,19 +98,21 @@ def logout():
     return resp, 200
 
 
-@jwt_required
-@auth.route('/protected', methods=['GET'])
-# @roles_required(["admin"])
-def protected():
-    if roles_required(["admin"]) == 400:
-        return jsonify({"msg": "no access"}), 400
-
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
 
 
-@jwt_required
+# @auth.route('/protected', methods=['GET'])
+# @jwt_required
+# # @roles_required(["admin"])
+# def protected():
+#     if roles_required(["admin"]) == 400:
+#         return jsonify({"msg": "no access"}), 400
+
+#     current_user = get_jwt_identity()
+#     return jsonify(logged_in_as=current_user), 200
+
+
 @auth.route('/me', methods=['GET'])
+@jwt_required
 def user_info():
     current_user = get_jwt_identity()
     return jsonify({'user': current_user}), 200

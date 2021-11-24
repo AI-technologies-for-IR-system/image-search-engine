@@ -6,9 +6,10 @@ from flask_jwt_extended import jwt_required
 from waitress import serve
 
 from blueprints.annotations.roles_required import roles_required
+
 from blueprints.auth import auth, jwt 
-from blueprints.users import users
 from blueprints.mlserving import ml_serving
+from blueprints.reports import reports
 
 from models.users import UsersModel
 
@@ -36,13 +37,13 @@ app.config['JWT_SECRET_KEY'] = config_jwt['JWT_SECRET_KEY']
 jwt.init_app(app)
 
 app.register_blueprint(auth, url_prefix='/auth')
-app.register_blueprint(users, url_prefix='/users')
 app.register_blueprint(ml_serving, url_prefix='/ml/serving')
+app.register_blueprint(reports, url_prefix='/reports')
 
-###
 @app.route('/')
 def serve_static_index():
     return send_from_directory('../client/build/', 'index.html')
+
 
 @app.route('/static/<path:path>') # serve whatever the client requested in the static folder
 def serve_static(path):
@@ -51,7 +52,11 @@ def serve_static(path):
 @app.route('/dataset/<path:path>') # serve whatever the client requested in the static folder
 def serve_static_dataset(path):
     return send_from_directory('../dataset/dogs_breed/', path)
-####
+
+# @app.route('/static/<path:path>') # serve whatever the client requested in the static folder
+# def serve_static(path):
+#     return jsonify({"msg": "Missing password parameter"}), 400
+    # return send_from_directory('../client/build/static/', path)
 
 
 if __name__ == '__main__':
