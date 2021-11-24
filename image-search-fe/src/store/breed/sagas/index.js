@@ -1,8 +1,7 @@
-import { call } from 'redux-saga/effects'
 import api from '../../../services/api'
-import { actions } from '../slice'
+import urls from '../../../services/apiUrl'
 import { pictureSearch, setBreedName, setPhotos, textSearch } from '../slice'
-import { put, takeLatest } from '@redux-saga/core/effects'
+import { put, takeLatest, call } from '@redux-saga/core/effects'
 
 const BreedMock = 'BreedMock'
 const PhotosMock = new Array(9).fill(
@@ -13,7 +12,7 @@ function* doPictureSearch({ payload }) {
   const formData = new FormData();
   formData.append('file_img', document.getElementById('dogpic').files[0]);
 
-  const { status: _, response } = yield call(api.postMultipart, 'http://127.0.0.1:5432/ml/serving/breeds/image/predict', formData)
+  const { status: _, response } = yield call(api.postMultipart, urls.predictBreedByPhoto, formData)
 
   yield put(
     setBreedName(response.data.replace('_', ' '))
