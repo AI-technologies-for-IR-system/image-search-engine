@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_cors import cross_origin
 import os
 import base64
 
@@ -23,7 +24,7 @@ def get_breeds_names():
 # def read_file_as_b64(path):
 #     with open(path, "rb") as image_file:
 #         encoded_string = base64.b64encode(image_file.read())
-#         return "data:image/jpeg;charset=utf-8;base64," + encoded_string.decode("utf-8") 
+#         return "data:image/jpeg;charset=utf-8;base64," + encoded_string.decode("utf-8")
 
 @ml_serving.route('/breeds/preview', methods=['GET'])
 def get_breeds_preview():
@@ -69,7 +70,7 @@ def get_breeds_preview_():
                         bread = all_names[i]
                         opa = i
                         break
-        
+
         if opa < 0:
             return jsonify({"msg": "not found"}), 404
 

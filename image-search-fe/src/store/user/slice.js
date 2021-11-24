@@ -6,6 +6,7 @@ const initialState = {
     firstName: localStorage.getItem('userFirstName'),
     lastName: localStorage.getItem('userLastName'),
     loggedIn: !!localStorage.getItem('userAuthToken'),
+    isAdmin: localStorage.getItem('userIsAdmin'),
   },
   loginErrors: null,
   registerErrors: null,

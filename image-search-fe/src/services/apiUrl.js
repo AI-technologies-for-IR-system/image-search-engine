@@ -1,14 +1,10 @@
+const base = `http://127.0.0.1:5432`
+
 const apiUrls = {
-  representations:
-    'https://iykxohbqf1.execute-api.eu-west-1.amazonaws.com/dev/representations',
-  login: 'https://b31axl8i5g.execute-api.eu-west-1.amazonaws.com/dev/login',
-  register:
-    'https://b31axl8i5g.execute-api.eu-west-1.amazonaws.com/dev/register',
-  transform:
-    'https://bdqu75zm6c.execute-api.eu-west-1.amazonaws.com/dev/transform',
-  //transform: 'http://localhost:5000/dev/transform',
-  reports: 'https://localhost:5000/dev/reports',
-  breeds: 'https://localhost:5000/ml/serving/breeds/preview',
+  login: `${base}/auth/login`,
+  register: `${base}/auth/register`,
+  reports: `${base}/reports`,
+  breeds: `${base}/ml/serving/breeds/preview`,
 }
 
 export default apiUrls

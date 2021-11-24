@@ -1,13 +1,14 @@
 import sys
 import os
 from flask import Flask, Blueprint, send_from_directory, jsonify, request
+from flask_cors import CORS, cross_origin
 from dotenv import load_dotenv, find_dotenv
 from flask_jwt_extended import jwt_required
 from waitress import serve
 
 from blueprints.annotations.roles_required import roles_required
 
-from blueprints.auth import auth, jwt 
+from blueprints.auth import auth, jwt
 from blueprints.mlserving import ml_serving
 from blueprints.reports import reports
 
@@ -30,6 +31,8 @@ from config import config_db
 
 
 app = Flask(__name__, static_url_path='')
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['JWT_TOKEN_LOCATION'] = config_jwt['JWT_TOKEN_LOCATION']
 app.config['JWT_REFRESH_COOKIE_PATH'] = config_jwt['JWT_REFRESH_COOKIE_PATH']
 app.config['JWT_SECRET_KEY'] = config_jwt['JWT_SECRET_KEY']

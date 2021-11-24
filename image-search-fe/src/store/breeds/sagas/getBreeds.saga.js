@@ -10,7 +10,14 @@ function* getBreeds({ payload }) {
 
     const { status: _, response } = yield call(api.get, urls.breeds)
 
-    yield put(actions.setBreeds(response))
+    yield put(
+      actions.setBreeds(
+        response.data.map((breed) => {
+          breed.photo = `http://127.0.0.1:5432${breed.photo}`
+          return breed
+        }),
+      ),
+    )
   } catch (error) {
     console.error(error)
   } finally {
