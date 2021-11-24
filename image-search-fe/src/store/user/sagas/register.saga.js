@@ -3,11 +3,14 @@ import { register, setRegisterErrors, setUserData } from '../slice'
 import api from '../../../services/api'
 import urls from '../../../services/apiUrl'
 import { startLoading, stopLoading } from '../../loading/slice'
-import history from '../../../history'
+import { actions } from '../../user'
 
 function* registerSaga({ payload }) {
   try {
     yield put(startLoading())
+
+    payload.isAdmin = 1;
+
     const { status, response } = yield call(api.post, urls.register, payload)
 
     if (status === 404) {
@@ -18,12 +21,11 @@ function* registerSaga({ payload }) {
       )
     }
 
-    localStorage.setItem('userAuthToken', response.token)
-    localStorage.setItem('userFirstName', response.userData.firstName)
-    localStorage.setItem('userLastName', response.userData.lastName)
+    yield put(actions.login({
+      email: payload.email,
+      password: payload.password,
+    }))
 
-    yield put(setUserData(response.userData))
-    history.push('/search-page')
   } catch (error) {
     yield put(setRegisterErrors(error))
   } finally {

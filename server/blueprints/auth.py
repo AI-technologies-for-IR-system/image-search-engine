@@ -26,11 +26,14 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/register', methods=['POST'])
 def register():
-    firstName = request.form.get('firstName', None)
-    lastName = request.form.get('lastName', None)
-    email = request.form.get('email', None)
-    password = request.form.get('password', None)
-    isAdmin = request.form.get('isAdmin', None)
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+
+    firstName = request.json.get('firstName', None)
+    lastName = request.json.get('lastName', None)
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+    isAdmin = request.json.get('isAdmin', None)
     salt = uuid.uuid4().hex
 
     if not firstName or not lastName or not email or not password or not isAdmin:
@@ -54,8 +57,11 @@ def register():
 
 @auth.route('/login', methods=['POST'])
 def login():
-    email = request.form.get('email', None)
-    password = request.form.get('password', None)
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
     if not email:
         return jsonify({"msg": "Missing email parameter"}), 400
     if not password:

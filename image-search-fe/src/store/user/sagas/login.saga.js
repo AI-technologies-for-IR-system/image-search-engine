@@ -22,6 +22,8 @@ function* loginSaga({ payload }) {
     localStorage.setItem('userAuthToken', response.token)
     localStorage.setItem('userFirstName', response.userData.firstName)
     localStorage.setItem('userLastName', response.userData.lastName)
+    localStorage.setItem('userIsAdmin', response.userData.isAdmin)
+
     sessionStorage.setItem('userAuthToken', response.token)
 
     yield put(setUserData(response.userData))

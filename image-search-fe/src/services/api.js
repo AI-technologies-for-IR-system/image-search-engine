@@ -1,5 +1,7 @@
 import * as mocks from './mocks'
 
+global.production = false;
+
 async function postData(url = '', data = {}) {
   if (!global.production) {
     return mocks.post(url, data)
@@ -34,10 +36,13 @@ async function getData(url = '') {
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      Authorization: userAuthToken || token,
+      // FIXME: Enabling this breaks CORS:
+      // Authorization: undefined && (userAuthToken || token),
     },
   })
+
   const dataRes = await response.json()
+
   return {
     status: response.status,
     response: dataRes,
