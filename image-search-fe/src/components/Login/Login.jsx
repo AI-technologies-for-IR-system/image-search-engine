@@ -47,7 +47,7 @@ const Login = () => {
   })
 
   return loggedIn ? (
-    <Redirect to="/calculator" />
+    <Redirect to="/search-page" />
   ) : (
     <div className={classes.loginContent}>
       {errors && !isClosed && (

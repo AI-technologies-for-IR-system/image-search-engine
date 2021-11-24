@@ -25,7 +25,7 @@ function* loginSaga({ payload }) {
     sessionStorage.setItem('userAuthToken', response.token)
 
     yield put(setUserData(response.userData))
-    history.push('/calculator')
+    history.push('/search-page')
   } catch (error) {
     yield put(setLoginErrors(error))
   } finally {

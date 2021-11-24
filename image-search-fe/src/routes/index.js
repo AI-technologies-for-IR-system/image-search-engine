@@ -15,6 +15,7 @@ import NotFound from '../components/NotFound/NotFound'
 import ScrollToTop from './scroll'
 import Admin from '../components/Admin/Admin'
 import Breeds from '../components/Breeds/Breeds'
+import SearchPage from '../components/SearchPage/SearchPage'
 
 const ImplicitExplicitRouter = ({ history }) => (
   <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
@@ -46,6 +47,9 @@ const ImplicitExplicitRouter = ({ history }) => (
       </Route>
       <Route path="/about">
         <About />
+      </Route>
+      <Route path="/search-page">
+        <SearchPage />
       </Route>
       <NotFound />
     </Switch>

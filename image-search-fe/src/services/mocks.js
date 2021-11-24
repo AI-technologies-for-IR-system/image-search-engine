@@ -6,12 +6,12 @@ import { database } from './mockDatabase'
 export const post = makeMockApiClientFn('post', (rawUrl, data) => {
   const url = new URL(rawUrl)
 
-  const pathSegments = url.pathname.split('/');
+  const pathSegments = url.pathname.split('/')
 
-  const lastSegment = pathSegments[pathSegments.length - 1];
+  const lastSegment = pathSegments[pathSegments.length - 1]
 
   if (pathSegments[pathSegments.length - 2] === 'reports') {
-    const id = lastSegment;
+    const id = lastSegment
 
     const index = database.reports.findIndex((record) => record.id === id)
 
