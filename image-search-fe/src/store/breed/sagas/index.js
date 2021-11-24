@@ -1,3 +1,6 @@
+import { call } from 'redux-saga/effects'
+import api from '../../../services/api'
+import { actions } from '../slice'
 import { pictureSearch, setBreedName, setPhotos, textSearch } from '../slice'
 import { put, takeLatest } from '@redux-saga/core/effects'
 
@@ -7,10 +10,19 @@ const PhotosMock = new Array(9).fill(
 )
 
 function* doPictureSearch({ payload }) {
-  // TODO: request from BE with payload
-  const response = { breed: BreedMock }
+  const formData = new FormData();
+  formData.append('file_img', document.getElementById('dogpic').files[0]);
 
-  yield put(textSearch({ dogname: response.breed }))
+  const { status: _, response } = yield call(api.postMultipart, 'http://127.0.0.1:5432/ml/serving/breeds/image/predict', formData)
+
+  yield put(
+    setBreedName(response.data.replace('_', ' '))
+  );
+
+  // // TODO: request from BE with payload
+  // const response = { breed: BreedMock }
+
+  // yield put(textSearch({ dogname: response.breed }))
 }
 
 function* doTextSearch({ payload }) {

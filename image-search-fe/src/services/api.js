@@ -1,6 +1,6 @@
 import * as mocks from './mocks'
 
-global.production = false
+global.production = true
 
 async function postData(url = '', data = {}) {
   if (!global.production) {
@@ -17,6 +17,28 @@ async function postData(url = '', data = {}) {
       Authorization: userAuthToken || token,
     },
     body: JSON.stringify(data),
+  })
+  const dataRes = await response.json()
+  return {
+    status: response.status,
+    response: dataRes,
+  }
+}
+
+async function postMultipartData(url = '', data = {}) {
+  if (!global.production) {
+    return mocks.post(url, data)
+  }
+
+  const userAuthToken = localStorage.getItem('userAuthToken')
+  const token = sessionStorage.getItem('userAuthToken')
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: userAuthToken || token,
+    },
+    body: data,
   })
   const dataRes = await response.json()
   return {
@@ -52,6 +74,7 @@ async function getData(url = '') {
 export const api = {
   get: getData,
   post: postData,
+  postMultipart: postMultipartData
 }
 
 export default api

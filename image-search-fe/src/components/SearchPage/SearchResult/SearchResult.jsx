@@ -12,7 +12,7 @@ function SearchResult(props) {
 
   return (
     breedName &&
-    photos.length && (
+    /* photos.length && // TODO: remove comment!!!!! */ (
       <div className={classes.container}>
         <div className={classes.breedInfo}>
           <span className={classes.breedLabel}>Порода:</span>
@@ -20,7 +20,7 @@ function SearchResult(props) {
 
           {!props.isTextSearch && <FeedbackForm />}
         </div>
-        <div className={classes.photoList}>
+        {/* <div className={classes.photoList}> // TODO: remove comment!!!!!
           {photos.map((photo, i) => (
             <img
               className={classes.photoItem}
@@ -29,7 +29,7 @@ function SearchResult(props) {
               src={photo}
             />
           ))}
-        </div>
+        </div> */} 
       </div>
     )
   )
