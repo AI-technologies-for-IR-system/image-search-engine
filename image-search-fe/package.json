@@ -1,5 +1,5 @@
 {
-  "name": "Dog breed",
+  "name": "dog-breed",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
