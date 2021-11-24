@@ -4,7 +4,7 @@ import psycopg2
 from datetime import date
 from flask_jwt_extended import (
     jwt_required, create_access_token,
-    jwt_refresh_token_required, create_refresh_token,
+    create_refresh_token,
     get_jwt_identity, set_access_cookies,
     set_refresh_cookies, unset_jwt_cookies
 )
@@ -85,7 +85,7 @@ def login():
 
 
 @auth.route('/refresh', methods=['POST'])
-@jwt_refresh_token_required
+# @jwt_refresh_token_required
 def refresh():
     current_user = get_jwt_identity()
     access_token = create_access_token(identity=current_user)
@@ -102,8 +102,8 @@ def logout():
     return resp, 200
 
 
-@auth.route('/protected', methods=['GET'])
 @jwt_required
+@auth.route('/protected', methods=['GET'])
 # @roles_required(["admin"])
 def protected():
     if roles_required(["admin"]) == 400:
@@ -113,8 +113,8 @@ def protected():
     return jsonify(logged_in_as=current_user), 200
 
 
-@auth.route('/me', methods=['GET'])
 @jwt_required
+@auth.route('/me', methods=['GET'])
 def user_info():
     current_user = get_jwt_identity()
     return jsonify({'user': current_user}), 200

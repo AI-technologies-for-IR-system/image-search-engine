@@ -13,8 +13,8 @@ users_model = UsersModel()
 
 users = Blueprint('users', __name__)
 
-@users.route('/create', methods=['POST'])
 @jwt_required
+@users.route('/create', methods=['POST'])
 def create():
     if roles_required(["admin", "registrar"]) == 400:
         return jsonify({"msg": "no access"}), 400
@@ -56,8 +56,8 @@ def get():
 
     return jsonify({"code_usages_blank": returned_data}), 200
 
-@users.route('/get_all', methods=['POST'])
 @jwt_required
+@users.route('/get_all', methods=['POST'])
 def get_all():
     if roles_required(["admin", "registrar"]) == 400:
         return jsonify({"msg": "no access"}), 400
@@ -68,8 +68,8 @@ def get_all():
 
     return jsonify({"usages_registers": returned_data}), 200
 
-@users.route('/delete', methods=['POST'])
 @jwt_required
+@users.route('/delete', methods=['POST'])
 def delete():
     if roles_required(["admin", "registrar"]) == 400:
         return jsonify({"msg": "no access"}), 400
@@ -87,8 +87,8 @@ def delete():
     return jsonify({"msg": "user was deleted"}), 201
 
 
-@users.route('/delete_all', methods=['POST'])
 @jwt_required
+@users.route('/delete_all', methods=['POST'])
 def delete_all():
     if roles_required(["admin", "registrar"]) == 400:
         return jsonify({"msg": "no access"}), 400
@@ -100,8 +100,8 @@ def delete_all():
 
     return jsonify({"msg": "users was deleted"}), 201
 
-@users.route('/update', methods=['POST'])
 @jwt_required
+@users.route('/update', methods=['POST'])
 def update():
     if roles_required(["admin", "registrar"]) == 400:
         return jsonify({"msg": "no access"}), 400
@@ -130,8 +130,8 @@ def update():
 
     return jsonify({"msg": "usages of register was updated"}), 201
 
-@users.route('/amount', methods=['POST'])
 @jwt_required
+@users.route('/amount', methods=['POST'])
 def amount():
     if roles_required(["admin", "registrar"]) == 400:
         return jsonify({"msg": "no access"}), 400
@@ -142,8 +142,8 @@ def amount():
 
     return jsonify({"usages_registers_amount": returned_data}), 200
 
-@users.route('/generate', methods=['POST'])
 @jwt_required
+@users.route('/generate', methods=['POST'])
 def generate():
     if roles_required(["admin", "registrar"]) == 400:
         return jsonify({"msg": "no access"}), 400
