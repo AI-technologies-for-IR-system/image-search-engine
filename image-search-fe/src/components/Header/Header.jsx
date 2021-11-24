@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { isLoggedIn } from '../../store/user/selectors'
+import { isLoggedIn, getIsAdmin } from '../../store/user/selectors'
 import { logout } from '../../store/user/slice'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
@@ -12,6 +12,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import useStyles from '../../utils/hooks/useStyles'
 import styles from './styles'
+
 
 function ElevationScroll(props) {
   const { children } = props
@@ -34,6 +35,7 @@ export function Header() {
   const classes = useStyles(styles)
   const history = useHistory()
   const loggedIn = useSelector(isLoggedIn)
+  const isAdmin = useSelector(getIsAdmin);
   const dispatch = useDispatch()
 
   return (
@@ -56,6 +58,7 @@ export function Header() {
             >
               Калькулятор
             </Button>
+            {isAdmin ?? <Button className={classes.link} component={RouterLink} to="/admin">Адмін</Button>}
             {loggedIn ? (
               <>
                 <Button
