@@ -18,14 +18,14 @@ const styles = {
     '&:hover': {
       borderColor: 'darkgreen',
       backgroundColor: 'rgb(239, 247, 236)',
-    }
+    },
   },
   breedPhotoContainer: {
-    display: "flex",
-    justifyContent: "center"
+    display: 'flex',
+    justifyContent: 'center',
   },
   breedPhoto: {
-    maxWidth: "150px",
+    maxWidth: '150px',
   },
   rejectButton: {
     color: 'red',
@@ -36,18 +36,18 @@ const styles = {
     '&:hover': {
       borderColor: 'darkgreen',
       backgroundColor: 'rgb(239, 247, 236)',
-    }
+    },
   },
   header: {
-    fontSize: '16px'
+    fontSize: '16px',
   },
   message: {
     fontFamily: 'KaTeX_Main',
     fontSize: '30px',
     fontStyle: 'italic',
     textAlign: 'center',
-    height: '100%'
-  }
-};
+    height: '100%',
+  },
+}
 
-export default styles;
+export default styles

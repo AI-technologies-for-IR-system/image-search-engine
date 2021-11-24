@@ -14,11 +14,11 @@ const styles = {
     '&:hover': {
       borderColor: 'darkgreen',
       backgroundColor: 'rgb(239, 247, 236)',
-    }
+    },
   },
-  calc : {
+  calc: {
     marginRight: '15px',
-  }
-};
+  },
+}
 
-export default styles;
+export default styles

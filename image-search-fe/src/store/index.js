@@ -1,10 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import createStore from './createStore';
-import * as loading from './loading';
-import * as notifications from './notifications';
-import * as user from './user';
-import * as reports from './reports';
+import createStore from './createStore'
+import * as loading from './loading'
+import * as notifications from './notifications'
+import * as user from './user'
+import * as reports from './reports'
 
 export default createStore({
   reducer: combineReducers({
@@ -13,9 +13,6 @@ export default createStore({
     user: user.reducer,
     reports: reports.reducer,
   }),
-  sagas: [
-    ...user.sagas,
-    ...reports.sagas
-  ],
+  sagas: [...user.sagas, ...reports.sagas],
   middleware: [],
 })

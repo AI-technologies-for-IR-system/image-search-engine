@@ -1,12 +1,12 @@
-import * as mocks from './mocks';
+import * as mocks from './mocks'
 
 async function postData(url = '', data = {}) {
   if (!global.production) {
-    return mocks.post(url, data);
+    return mocks.post(url, data)
   }
 
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const token = sessionStorage.getItem('userAuthToken');
+  const userAuthToken = localStorage.getItem('userAuthToken')
+  const token = sessionStorage.getItem('userAuthToken')
 
   const response = await fetch(url, {
     method: 'POST',
@@ -25,11 +25,11 @@ async function postData(url = '', data = {}) {
 
 async function getData(url = '') {
   if (!global.production) {
-    return mocks.get(url);
+    return mocks.get(url)
   }
 
-  const userAuthToken = localStorage.getItem('userAuthToken');
-  const token = sessionStorage.getItem('userAuthToken');
+  const userAuthToken = localStorage.getItem('userAuthToken')
+  const token = sessionStorage.getItem('userAuthToken')
 
   const response = await fetch(url, {
     method: 'GET',

@@ -13,7 +13,6 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import useStyles from '../../utils/hooks/useStyles'
 import styles from './styles'
 
-
 function ElevationScroll(props) {
   const { children } = props
   const trigger = useScrollTrigger({
@@ -35,7 +34,7 @@ export function Header() {
   const classes = useStyles(styles)
   const history = useHistory()
   const loggedIn = useSelector(isLoggedIn)
-  const isAdmin = useSelector(getIsAdmin);
+  const isAdmin = useSelector(getIsAdmin)
   const dispatch = useDispatch()
 
   return (
@@ -58,7 +57,15 @@ export function Header() {
             >
               Калькулятор
             </Button>
-            {isAdmin && <Button className={classes.link} component={RouterLink} to="/admin">Адмін</Button>}
+            {isAdmin && (
+              <Button
+                className={classes.link}
+                component={RouterLink}
+                to="/admin"
+              >
+                Адмін
+              </Button>
+            )}
             {loggedIn ? (
               <>
                 <Button

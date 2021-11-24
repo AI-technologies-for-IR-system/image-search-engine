@@ -25,7 +25,7 @@ const ImplicitExplicitRouter = ({ history }) => (
       <Route exact path="/">
         <Main />
       </Route>
-      <Route path="/admin" >
+      <Route path="/admin">
         <Admin />
       </Route>
       <Route exact path="/login">
