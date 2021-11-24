@@ -64,10 +64,10 @@ function Main() {
                 variant="outlined"
                 color="primary"
                 component={RouterLink}
-                to="/calculator"
+                to="/search-page"
                 className={classes.calc}
               >
-                Перейти до калькулятора
+                Перейти до пошуку
               </Button>
               {loggedIn ? null : (
                 <>
