@@ -6,7 +6,7 @@ const validationSchema = yup.object().shape({
     .required('Це поле є обов`язковим')
     .test('fileFormat', 'Допустимими є лише картинки', (value) => {
       // TODO: define all file extentions
-      return value && ['.png'].some((match) => value.match(match))
+      return value && ['.png', '.jpg', '.jpeg'].some((match) => value.match(match))
     }),
 })
 
