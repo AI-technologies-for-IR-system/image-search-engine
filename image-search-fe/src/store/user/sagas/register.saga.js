@@ -9,7 +9,7 @@ function* registerSaga({ payload }) {
   try {
     yield put(startLoading())
 
-    payload.isAdmin = 1;
+    payload.isAdmin = 1
 
     const { status, response } = yield call(api.post, urls.register, payload)
 
@@ -21,11 +21,12 @@ function* registerSaga({ payload }) {
       )
     }
 
-    yield put(actions.login({
-      email: payload.email,
-      password: payload.password,
-    }))
-
+    yield put(
+      actions.login({
+        email: payload.email,
+        password: payload.password,
+      }),
+    )
   } catch (error) {
     yield put(setRegisterErrors(error))
   } finally {

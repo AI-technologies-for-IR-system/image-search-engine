@@ -1,6 +1,6 @@
 import * as mocks from './mocks'
 
-global.production = false;
+global.production = false
 
 async function postData(url = '', data = {}) {
   if (!global.production) {

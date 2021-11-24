@@ -1,4 +1,4 @@
-const base = `http://127.0.0.1:5432`;
+const base = `http://127.0.0.1:5432`
 
 const apiUrls = {
   login: `${base}/auth/login`,
