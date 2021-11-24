@@ -28,9 +28,8 @@ from config import config_db
 # def index(path):
 #     return send_from_directory('dist', 'index.html')
 
-# static = Blueprint('static', __name__)
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 app.config['JWT_TOKEN_LOCATION'] = config_jwt['JWT_TOKEN_LOCATION']
 app.config['JWT_REFRESH_COOKIE_PATH'] = config_jwt['JWT_REFRESH_COOKIE_PATH']
 app.config['JWT_SECRET_KEY'] = config_jwt['JWT_SECRET_KEY']
@@ -42,21 +41,15 @@ app.register_blueprint(reports, url_prefix='/reports')
 
 @app.route('/')
 def serve_static_index():
-    return send_from_directory('../client/build/', 'index.html')
-
+    return send_from_directory('../image-search-fe/build/', 'index.html')
 
 @app.route('/static/<path:path>') # serve whatever the client requested in the static folder
 def serve_static(path):
-    return send_from_directory('../client/build/static/', path)
+    return send_from_directory('../image-search-fe/build/static/', path)
 
 @app.route('/dataset/<path:path>') # serve whatever the client requested in the static folder
 def serve_static_dataset(path):
     return send_from_directory('../dataset/dogs_breed/', path)
-
-# @app.route('/static/<path:path>') # serve whatever the client requested in the static folder
-# def serve_static(path):
-#     return jsonify({"msg": "Missing password parameter"}), 400
-    # return send_from_directory('../client/build/static/', path)
 
 
 if __name__ == '__main__':
