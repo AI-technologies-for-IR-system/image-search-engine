@@ -55,7 +55,7 @@ export function Header() {
               component={RouterLink}
               to="/search-page"
             >
-              Собако-Пошук
+              Пошук
             </Button>
             <Button
               className={classes.link}

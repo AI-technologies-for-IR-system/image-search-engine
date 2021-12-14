@@ -1,6 +1,6 @@
 import api from '../../../services/api'
 import urls from '../../../services/apiUrl'
-import { pictureSearch, setBreedName, setPhotos, textSearch } from '../slice'
+import { pictureSearch, setBreedName, setBreedRawData, setPhotos, textSearch } from '../slice'
 import { put, takeLatest, call } from '@redux-saga/core/effects'
 
 const BreedMock = 'BreedMock'
@@ -14,9 +14,15 @@ function* doPictureSearch({ payload }) {
 
   const { status: _, response } = yield call(api.postMultipart, urls.predictBreedByPhoto, formData)
 
+  const dataRaw = response.rawData.map(x => ({ ...x, name: x.name.replaceAll('_', ' ') })).sort((x, y) => y.val - x.val);
+
+  // console.log("hoba");
+  // console.log(dataRaw);
+
   yield put(
-    setBreedName(response.data.replace('_', ' '))
+    setBreedName(response.data.replaceAll('_', ' '))
   );
+  yield put(setBreedRawData(dataRaw));
 
   // // TODO: request from BE with payload
   // const response = { breed: BreedMock }

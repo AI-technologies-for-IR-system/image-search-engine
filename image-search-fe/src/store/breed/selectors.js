@@ -7,6 +7,11 @@ export const getBreedName = createSelector(
   (root) => root.breed.breedName,
 )
 
+export const getBreedRawData = createSelector(
+  getRoot,
+  (root) => root.breed.breedRawData,
+)
+
 export const getPhotos = createSelector(getRoot, (root) => root.breed.photos)
 
 export const getRequestErrors = createSelector(

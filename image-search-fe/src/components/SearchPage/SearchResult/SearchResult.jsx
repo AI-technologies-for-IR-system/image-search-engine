@@ -2,13 +2,16 @@ import styles from './styles'
 import useStyles from '../../../utils/hooks/useStyles'
 import FeedbackForm from './FeedbackForm/FeedbackForm'
 import { useSelector } from 'react-redux'
-import { getBreedName, getPhotos } from '../../../store/breed/selectors'
+import { getBreedName, getPhotos, getBreedRawData } from '../../../store/breed/selectors'
 
 function SearchResult(props) {
   const classes = useStyles(styles)
 
   const breedName = useSelector(getBreedName)
+
   const photos = useSelector(getPhotos)
+
+  const breedRawData = useSelector(getBreedRawData);
 
   return (
     breedName &&
@@ -17,7 +20,13 @@ function SearchResult(props) {
         <div className={classes.breedInfo}>
           <span className={classes.breedLabel}>Порода:</span>
           <span className={classes.breedName}>{breedName}</span>
-
+          <div>
+            <ul>
+              {breedRawData?.map(x => (
+                <li id={x.name}>{x.name}, {(x.val * 100).toFixed(3) === "0.000" ? ">0.001" : (x.val * 100).toFixed(3) }%</li>
+              ))}
+            </ul>
+          </div>
           {!props.isTextSearch && <FeedbackForm />}
         </div>
         {/* <div className={classes.photoList}> // TODO: remove comment!!!!!

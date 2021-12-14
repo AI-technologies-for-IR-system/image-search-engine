@@ -3,6 +3,7 @@ import noop from '../../utils/noop'
 
 const initialState = {
   breed: {
+    breedRawData: [],
     breedName: '',
     photos: [],
   },
@@ -15,6 +16,10 @@ const { actions, reducer } = createSlice({
   reducers: {
     pictureSearch: noop,
     textSearch: noop,
+    setBreedRawData: (state, { payload }) => ({
+      ...state,
+      breed: { ...state.breed, breedRawData: payload },
+    }),
     setBreedName: (state, { payload }) => ({
       ...state,
       breed: { ...state.breed, breedName: payload },
@@ -33,6 +38,7 @@ export const {
   pictureSearch,
   textSearch,
   setBreedName,
+  setBreedRawData,
   setPhotos,
   resetBreedInfo,
 } = actions

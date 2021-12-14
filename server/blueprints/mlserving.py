@@ -152,13 +152,20 @@ def get_breeds_image():
 
         test_predictions = loaded_full_model.predict(data_batch,  verbose=1)
 
-        print(test_predictions)
+        # print(test_predictions)
 
         res = get_pred_label(test_predictions)
 
-        print(res)
+        # print(res)
+        # unique_labels[np.argmax(prediction_probabilities)]
+        flat_list_predicts = test_predictions.flatten().tolist()
+        rawData = [{ "name": unique_labels[idx], "val": x } for idx, x in enumerate(flat_list_predicts)]
+        rawData.sort(key=lambda x: x["val"], reverse=True)
+        rawData = rawData[:10]
 
-        return jsonify({"data": res}), 201
+        # print(rawData)
+
+        return jsonify({"data": res, "rawData": rawData }), 201
     except Exception as e:
         print(e)
         return jsonify({"msg": str(e)}), 400
