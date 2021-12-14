@@ -21,6 +21,8 @@ def create():
             "expected": request_json["expected"],
             "actual": request_json["actual"],
         })
+        if not isCreated:
+            return jsonify({"msg": "request wasn't added"}), 500
     except Exception as e:
         return jsonify({"msg": str(e)}), 500
 
