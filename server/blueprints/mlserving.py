@@ -7,6 +7,34 @@ import tensorflow_hub as hub
 from werkzeug.datastructures import ImmutableMultiDict
 import pandas as pd
 import numpy as np
+from keras.preprocessing import image  
+from tensorflow.keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
+
+# define ResNet50 model
+ML__ResNet50_model = ResNet50(weights='imagenet')
+                
+
+def ML__path_to_tensor(img_path):
+    # loads RGB image as PIL.Image.Image type
+    img = image.load_img(img_path, target_size=(224, 224))
+    # convert PIL.Image.Image type to 3D tensor with shape (224, 224, 3)
+    x = image.img_to_array(img)
+    # convert 3D tensor to 4D tensor with shape (1, 224, 224, 3) and return 4D tensor
+    return np.expand_dims(x, axis=0)
+
+
+def ML__ResNet50_predict_labels(img_path):
+    # returns prediction vector for image located at img_path
+    img = preprocess_input(ML__path_to_tensor(img_path))
+    return np.argmax(ML__ResNet50_model.predict(img))
+
+
+### returns "True" if a dog is detected in the image stored at img_path
+def ML__dog_detector(img_path):
+    prediction = ML__ResNet50_predict_labels(img_path)
+    return ((prediction <= 268) & (prediction >= 151))
+
 
 ml_serving = Blueprint('ml_serving', __name__)
 
@@ -22,7 +50,7 @@ ml_serving = Blueprint('ml_serving', __name__)
 def get_breeds_names():
     try:
         res = [x[4:].replace("_", " ") for x in os.listdir("../dataset/dogs_breed")]
-        return jsonify({"data": res}), 201
+        return jsonify({"data": res}), 200
     except Exception as e:
         return jsonify({"msg": str(e)}), 400
 
@@ -44,7 +72,7 @@ def get_breeds_preview():
             # "photo": read_file_as_b64("../dataset/dogs_breed/" + x + "/" + os.listdir("../dataset/dogs_breed/" + x)[0])
         } for x in os.listdir("../dataset/dogs_breed")[:int(r)]]
 
-        return jsonify({"data": res}), 201
+        return jsonify({"data": res}), 200
     except Exception as e:
         return jsonify({"msg": str(e)}), 400
 
@@ -86,7 +114,7 @@ def get_breeds_preview_():
             "photo": "/dataset/" + q + os.listdir("../dataset/dogs_breed/" + q)[0]
         }
 
-        return jsonify({"data": res}), 201
+        return jsonify({"data": res}), 200
     except Exception as e:
         return jsonify({"msg": str(e)}), 400
 
@@ -139,6 +167,13 @@ def get_breeds_image():
         # print(request.files['file_name'])
         data.save('/tmp/' + data.filename)
 
+        filename_full = '/tmp/' + data.filename
+
+        is_dog = ML__dog_detector(filename_full)
+
+        if not is_dog:
+            return jsonify({"isDog": bool(is_dog) }), 200
+
         # image = process_image('/tmp/' + data.filename)
         # print(image)
 
@@ -163,9 +198,9 @@ def get_breeds_image():
         rawData.sort(key=lambda x: x["val"], reverse=True)
         rawData = rawData[:10]
 
-        # print(rawData)
 
-        return jsonify({"data": res, "rawData": rawData }), 201
+
+        return jsonify({"data": res, "rawData": rawData, "isDog": bool(is_dog) }), 200
     except Exception as e:
         print(e)
         return jsonify({"msg": str(e)}), 400
