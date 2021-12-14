@@ -27,7 +27,7 @@ function SearchResult(props) {
               ))}
             </ul>
           </div>
-          {!props.isTextSearch && <FeedbackForm />}
+          {props.typeSearch !== "text" && <FeedbackForm />}
         </div>
         {/* <div className={classes.photoList}> // TODO: remove comment!!!!!
           {photos.map((photo, i) => (

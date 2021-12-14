@@ -6,17 +6,19 @@ import { useState } from 'react'
 
 function SearchPage() {
   const classes = useStyles(styles)
-  const [isTextSearch, setIsTextSearch] = useState(false)
+  const [typeSearch, setTypeSearch] = useState('image')
 
   return (
-    <div className={classes.page}>
-      <h3 className={classes.title}>Собако-Пошук</h3>
-      <SearchForm
-        setIsTextSearch={setIsTextSearch}
-        isTextSearch={isTextSearch}
-      />
-      <SearchResult isTextSearch={isTextSearch} />
-    </div>
+    <>
+      <h1 style={{ fontSize: 40, textAlign: "center" }} >Пошук породи собаки</h1>
+      <div className={classes.page}>
+        <SearchForm
+          setTypeSearch={setTypeSearch}
+          typeSearch={typeSearch}
+        />
+        <SearchResult typeSearch={typeSearch} />
+      </div>
+    </>
   )
 }
 

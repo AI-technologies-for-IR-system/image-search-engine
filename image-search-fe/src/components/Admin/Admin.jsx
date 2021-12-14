@@ -50,7 +50,7 @@ const Admin = () => {
 
   return (
     <div>
-      <div style={{ margin: 'auto', fontSize: 40, width: '0' }}>Admin</div>
+      <h1 style={{ fontSize: 40, textAlign: "center" }}>Admin</h1>
       <div>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
