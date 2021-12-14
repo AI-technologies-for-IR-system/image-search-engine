@@ -9,7 +9,7 @@ function* registerSaga({ payload }) {
   try {
     yield put(startLoading())
 
-    payload.isAdmin = 1
+    payload.isAdmin = 0
 
     const { status, response } = yield call(api.post, urls.register, payload)
 

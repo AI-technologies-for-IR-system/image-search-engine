@@ -36,7 +36,7 @@ def register():
     isAdmin = request.json.get('isAdmin', None)
     salt = uuid.uuid4().hex
 
-    if not firstName or not lastName or not email or not password or not isAdmin:
+    if not firstName or not lastName or not email or not password or isAdmin is None:
         return jsonify({"msg": "Missing some parameter"}), 400
 
     password_with_salt = password + salt

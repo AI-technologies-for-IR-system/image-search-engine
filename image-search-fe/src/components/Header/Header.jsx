@@ -70,7 +70,7 @@ export function Header() {
                 component={RouterLink}
                 to="/admin"
               >
-                Адмін
+                Заявки
               </Button>
             )}
             {loggedIn ? (
