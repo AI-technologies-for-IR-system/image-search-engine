@@ -6,6 +6,7 @@ const initialState = {
     breedRawData: [],
     breedName: '',
     photos: [],
+    isReady: false,
   },
   requestErrors: null,
 }
@@ -16,13 +17,17 @@ const { actions, reducer } = createSlice({
   reducers: {
     pictureSearch: noop,
     textSearch: noop,
+    resetIsReady: (state) => ({
+      ...state,
+      breed: { ...state.breed, isReady: false, }
+    }),
     setBreedRawData: (state, { payload }) => ({
       ...state,
-      breed: { ...state.breed, breedRawData: payload },
+      breed: { ...state.breed, breedRawData: payload, isReady: true },
     }),
     setBreedName: (state, { payload }) => ({
       ...state,
-      breed: { ...state.breed, breedName: payload },
+      breed: { ...state.breed, breedName: payload, isReady: true },
     }),
     setPhotos: (state, { payload }) => ({
       ...state,
@@ -41,4 +46,5 @@ export const {
   setBreedRawData,
   setPhotos,
   resetBreedInfo,
+  resetIsReady,
 } = actions

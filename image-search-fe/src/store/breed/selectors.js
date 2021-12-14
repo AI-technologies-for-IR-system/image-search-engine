@@ -18,3 +18,8 @@ export const getRequestErrors = createSelector(
   getRoot,
   (root) => root.registerErrors,
 )
+
+export const getIsReady = createSelector(
+  getRoot,
+  (root) => root.breed.isReady,
+)
