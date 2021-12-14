@@ -10,7 +10,12 @@ const PhotosMock = new Array(9).fill(
 
 function* doPictureSearch({ payload }) {
   const formData = new FormData();
-  formData.append('file_img', document.getElementById('dogpic').files[0]);
+
+  if (payload?.isPhoto === true) {
+    formData.append('file_img', payload.dogpic);
+  } else {
+    formData.append('file_img', document.getElementById('dogpic').files[0]);
+  }
 
   const { status: _, response } = yield call(api.postMultipart, urls.predictBreedByPhoto, formData)
 

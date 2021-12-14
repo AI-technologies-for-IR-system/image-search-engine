@@ -3,9 +3,11 @@ const styles = {
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
-    width: '100vw',
+    // width: '100vw',
     padding: '20px 10vw',
+    paddingTop: '0',
     minHeight: 'calc(100vh - 128px)',
+    marginTop: '-20px'
   },
 
   title: {

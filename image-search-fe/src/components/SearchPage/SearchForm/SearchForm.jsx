@@ -3,6 +3,7 @@ import useStyles from '../../../utils/hooks/useStyles'
 import { useCallback } from 'react'
 import PictureForm from './PictureForm/PictureForm'
 import TextForm from './TextForm/TextForm'
+import PhotoForm from './PhotoForm/PhotoForm'
 import { useDispatch } from 'react-redux'
 import { resetBreedInfo } from '../../../store/breed/slice'
 
@@ -11,8 +12,8 @@ function SearchForm(props) {
   const dispatch = useDispatch()
 
   const setFormState = useCallback(
-    (isTextSearch) => {
-      props.setIsTextSearch(isTextSearch)
+    (typeSearch) => {
+      props.setTypeSearch(typeSearch)
       dispatch(resetBreedInfo())
     },
     [dispatch, props],
@@ -23,23 +24,31 @@ function SearchForm(props) {
       <div className={classes.formSwitcher}>
         <div
           className={`${classes.formVariant} ${
-            !props.isTextSearch ? classes.active : ''
+            props.typeSearch === "image" ? classes.active : ''
           }`}
-          onClick={() => setFormState(false)}
+          onClick={() => setFormState("image")}
         >
           Шукати за картинкою
         </div>
         <div
           className={`${classes.formVariant} ${
-            props.isTextSearch ? classes.active : ''
+            props.typeSearch === "photo" ? classes.active : ''
           }`}
-          onClick={() => setFormState(true)}
+          onClick={() => setFormState("photo")}
+        >
+          Шукати за фотографією з камери
+        </div>
+        <div
+          className={`${classes.formVariant} ${
+            props.typeSearch === "text" ? classes.active : ''
+          }`}
+          onClick={() => setFormState("text")}
         >
           Шукати за текстом
         </div>
       </div>
 
-      {props.isTextSearch ? <TextForm /> : <PictureForm />}
+      {props.typeSearch === "text" ? <TextForm /> : props.typeSearch === "image" ? <PictureForm /> : <PhotoForm />}
     </div>
   )
 }
