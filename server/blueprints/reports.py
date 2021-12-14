@@ -1,90 +1,55 @@
 
 from flask import request, Blueprint, jsonify
 from flask_cors import cross_origin
+from models.requests import RequestsModel
+# from connection import PostgresConnection
+
+requests_model = RequestsModel()
+
 reports = Blueprint('reports', __name__)
+
+
+@reports.route('/create', methods=['POST'])
+def create():
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 500
+    request_json = request.json
+    try:
+        isCreated = requests_model.create({
+            "email": request_json["email"],
+            "photo": request_json["photo"],
+            "expected": request_json["expected"],
+            "actual": request_json["actual"],
+        })
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 500
+
+    return jsonify({"msg": "request was added"}), 201
+
 
 @reports.route('/', methods=['GET'])
 @cross_origin()
 def show_reports():
-    rarray = [
-        {
-            'id': '1',
-            'photo': 'https://derpicdn.net/img/2021/11/23/2750996/full.jpg',
-            'expected': 'Rainbow Dash',
-            'actual': 'Fluttershy',
-        },
-        {
-            'id': '2',
-            'photo': 'https://derpicdn.net/img/2021/11/21/2749512/large.png',
-            'expected': 'Rainbow Dash',
-            'actual': 'Twilight Sparkle',
-        },
-        {
-            'id': '3',
-            'photo': 'https://derpicdn.net/img/2021/10/11/2722001/large.png',
-            'expected': 'Rainbow Dash',
-            'actual': 'Blackjack',
-        },
-        {
-            'id': '4',
-            'photo': 'https://derpicdn.net/img/2021/11/21/2749075/large.png',
-            'expected': 'Pinkie Pie',
-            'actual': 'Rainbow Dash',
-        },
-        {
-            'id': '5',
-            'photo': 'https://derpicdn.net/img/2021/11/21/2749471/large.jpg',
-            'expected': 'Rainbow Dash',
-            'actual': 'Your mum',
-        },
-        {
-            'id': '6',
-            'photo': 'https://derpicdn.net/img/2021/11/22/2750166/full.jpg',
-            'expected': 'Loona',
-            'actual': 'Woona',
-        },
-        {
-            'id': '7',
-            'photo': 'https://derpicdn.net/img/2021/11/22/2750344/large.png',
-            'expected': 'Fluttershy',
-            'actual': 'Applejack',
-        },
-        {
-            'id': '8',
-            'photo': 'https://derpicdn.net/img/2021/11/21/2749075/large.png',
-            'expected': 'Pinkie Pie',
-            'actual': 'Rainbow Dash',
-        },
-        {
-            'id': '9',
-            'photo': 'https://derpicdn.net/img/2021/11/22/2750015/large.png',
-            'expected': 'Roseluck',
-            'actual': 'Lyra',
-        },
-        {
-            'id': '10',
-            'photo': 'https://derpicdn.net/img/2021/11/22/2749837/large.png',
-            'expected': 'Fluttershy',
-            'actual': 'Bon Bon',
-        },
-        {
-            'id': '11',
-            'photo': 'https://derpicdn.net/img/2021/11/23/2750764/large.png',
-            'expected': 'Pipp Petals',
-            'actual': 'Izzy Moonbow',
-        },
-        {
-            'id': '12',
-            'photo': 'https://derpicdn.net/img/2021/11/21/2749244/large.png',
-            'expected': 'Lyra',
-            'actual': 'Celestia',
-        },
-    ] # get reports array
-    return jsonify(rarray), 200
+    try:
+        returned_data = requests_model.get_all()
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 500
+    return jsonify(returned_data), 200
+
 
 @reports.route('/<id>', methods=['POST'])
 def report_handler(id):
     conclusion = request.json.get('conclusion', None)
-    if not conclusion:
-        return jsonify({'msg    ''': "Conclusion is missed"}), 400
-    return jsonify({})
+    if conclusion == 'accept':
+        result = requests_model.update({'id': id, 'accepted': True})
+        if result:
+            return jsonify({'msg    ''': "Status of the request was updated"}), 201
+        else:
+            return jsonify({'msg    ''': "Status of the request wasn't updated"}), 500
+    elif conclusion == 'reject':
+        result = requests_model.delete({'id': id})
+        if result:
+            return jsonify({'msg    ''': "Request was deleted"}), 201
+        else:
+            return jsonify({'msg    ''': "Request wasn't deleted"}), 500
+    return jsonify({'msg    ''': "Conclusion is missed"}), 400
