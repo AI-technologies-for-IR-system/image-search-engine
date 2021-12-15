@@ -8,7 +8,10 @@ function* getResults({ payload }) {
   try {
     yield put(startLoading())
 
-    const { status: _, response } = yield call(api.get, urls.results)
+    const url = new URL(urls.results);
+    url.searchParams.append('email', localStorage.getItem('email'))
+
+    const { status: _, response } = yield call(api.get, url.toString())
 
     yield put(actions.setResults(response))
   } catch (error) {
