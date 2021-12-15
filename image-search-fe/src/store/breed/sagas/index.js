@@ -40,14 +40,29 @@ function* doPictureSearch({ payload }) {
 }
 
 function* doTextSearch({ payload }) {
-  const url = new URL(urls.searchBreedByText);
+  const url = new URL(urls.searchBreedByTextNew);
   url.searchParams.append('name', payload.dogname);
 
-  const { status: _, response } = yield call(api.get, url.toString())
 
-  yield put(
-    setBreedName(response.data.name.replace('_', ' ')),
-  );
+  try{
+    const { status, response } = yield call(api.get, url.toString())
+    console.log(status);
+    if (status === 404) {
+      yield put(setTextBreedResultsNotFound(true));
+    } else {
+      yield put(setTextBreedResults(response.data));
+    }
+  } catch (e) {
+    // yield put(setTextBreedResultsNotFound(true));
+  }
+
+
+
+
+  // yield put(
+  //   setBreedName(response.data.name.replace('_', ' ')),
+  // );
+
 
   // if (!payload.dogname) return // TODO: error
   // TODO: request from BE with payload

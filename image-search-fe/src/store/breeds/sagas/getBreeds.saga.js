@@ -8,7 +8,7 @@ function* getBreeds({ payload }) {
   try {
     yield put(startLoading())
 
-    const { status: _, response } = yield call(api.get, urls.breeds)
+    const { status: _, response } = yield call(api.get, urls.breedsNew)
 
     yield put(
       actions.setBreeds(

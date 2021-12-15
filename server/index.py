@@ -56,6 +56,10 @@ def serve_static(path):
 def serve_static_dataset(path):
     return send_from_directory('../dataset/dogs_breed/', path)
 
+@app.route('/dataset_new/<path:path>') # serve whatever the client requested in the static folder
+def serve_static_dataset_new(path):
+    return send_from_directory('../dataset/new/', path)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=config_db['port'])
