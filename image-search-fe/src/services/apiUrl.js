@@ -8,6 +8,7 @@ const apiUrls = {
   breedsNew: `${base}/ml/serving/breeds/preview_new`,
   predictBreedByPhoto: `${base}/ml/serving/breeds/image/predict`,
   searchBreedByText: `${base}/ml/serving/breeds/names/find`,
+  searchBreedByTextNew: `${base}/ml/serving/breeds/names/find_new`,
   submitCorrectBreed: `${base}/reports/create`
 }
 

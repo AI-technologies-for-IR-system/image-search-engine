@@ -2,7 +2,7 @@ import styles from './styles'
 import useStyles from '../../../utils/hooks/useStyles'
 import FeedbackForm from './FeedbackForm/FeedbackForm'
 import { useSelector, useDispatch } from 'react-redux'
-import { getBreedName, getPhotos, getBreedRawData, getIsReady } from '../../../store/breed/selectors'
+import { getBreedName, getPhotos, getBreedRawData, getTextBreedResults, getTextBreedResultsNotFound, getIsReady } from '../../../store/breed/selectors'
 import { actions, selectors } from '../../../store/breeds'
 import { useEffect } from 'react'
 
@@ -10,7 +10,8 @@ function SearchResult(props) {
   const classes = useStyles(styles)
 
   const breedName = useSelector(getBreedName)
-  const breeds = useSelector(selectors.getBreeds) ?? []
+  const breeds = useSelector(selectors.getBreeds) ?? [];
+
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(actions.getBreeds()), []);
@@ -19,10 +20,34 @@ function SearchResult(props) {
 
   const breedRawData = useSelector(getBreedRawData);
   const IsReady = useSelector(getIsReady);
+  const TextBreedResults = useSelector(getTextBreedResults);
+  const TextBreedResultsNotFound = useSelector(getTextBreedResultsNotFound);
+
 
 
   const breedObj = breeds?.filter(x => x.name === breedName)[0]?.photo
   // console.log(breeds);
+
+  
+  if (props.typeSearch === "text" && TextBreedResults && TextBreedResults.length > 0) {
+    return (
+      <div className={classes.breedInfo} style={{ display: "flex", flexDirection: "column", }}>
+        <p style={{textAlign: "center", fontSize: "30px" }}>Результати пошуку:</p>
+        {TextBreedResults?.map(x => (
+          <div style={{ display: "flex", marginBottom: "10px" }}>
+            <img src={"http://localhost:5432/" + x.photo} style={{ width: "200px" }} />
+            <p style={{marginBottom: "auto", textTransform: "capitalize", marginTop: "auto", marginLeft: "5px"}} id={x.name}>{x.name}</p>
+          </div>
+        ))}
+      </div>
+    );
+  } else if (props.typeSearch === "text" && TextBreedResultsNotFound === true) {
+    return (
+      <div className={classes.breedInfo} style={{ display: "flex", flexDirection: "column", }}>
+        <p style={{textAlign: "center", fontSize: "30px" }}>За вашим запитом нічого не знайдено</p>
+      </div>
+    );
+  }
 
   if (IsReady && breedName === "") {
     return (
