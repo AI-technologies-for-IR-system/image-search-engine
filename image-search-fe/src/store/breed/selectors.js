@@ -28,3 +28,13 @@ export const getSourcePhoto = createSelector(
   getRoot,
   (root) => root.breed.sourcePhoto,
 )
+
+export const getTextBreedResults = createSelector(
+  getRoot,
+  (root) => root.breed.textBreedResults,
+)
+
+export const getTextBreedResultsNotFound = createSelector(
+  getRoot,
+  (root) => root.breed.textBreedResultsNotFound,
+)

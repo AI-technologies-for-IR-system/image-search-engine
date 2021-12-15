@@ -7,7 +7,9 @@ const initialState = {
     breedName: '',
     photos: [],
     isReady: false,
-    sourcePhoto: ''
+    sourcePhoto: '',
+    textBreedResults: [],
+    textBreedResultsNotFound: false
   },
   requestErrors: null,
 }
@@ -30,6 +32,14 @@ const { actions, reducer } = createSlice({
     setBreedName: (state, { payload }) => ({
       ...state,
       breed: { ...state.breed, breedName: payload, isReady: true },
+    }),
+    setTextBreedResults: (state, { payload }) => ({
+      ...state,
+      breed: { ...state.breed, textBreedResults: payload, textBreedResultsNotFound: false },
+    }),
+    setTextBreedResultsNotFound: (state, { payload }) => ({
+      ...state,
+      breed: { ...state.breed, textBreedResults:[], textBreedResultsNotFound: payload },
     }),
     setPhotos: (state, { payload }) => ({
       ...state,
@@ -54,5 +64,7 @@ export const {
   resetBreedInfo,
   resetIsReady,
   submitBreed,
-  setSourcePhoto
+  setSourcePhoto,
+  setTextBreedResultsNotFound,
+  setTextBreedResults
 } = actions

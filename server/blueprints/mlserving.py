@@ -200,9 +200,15 @@ def get_breeds_preview__new():
             for j in range(len(user_data)):
                 if stop:
                     break
-                spltd = all_names[i].strip().lower().split()
+                # print(all_names[i])
+                # print(all_names[i].strip().lower().replace("_", " "))
+                # print(len(all_names[i].strip().lower().replace("_", " ").split()))
+                spltd = all_names[i].strip().lower().replace("_", " ").split()
+                # print(spltd)
                 for k in range(len(spltd)):
-                    if user_data[j] == spltd[k]:
+                    if user_data[j] in spltd[k]:
+                        # print(user_data[j], spltd[k])
+                        # print()
                         opa = 1
                         stop = True
                         results.append(all_names[i])
