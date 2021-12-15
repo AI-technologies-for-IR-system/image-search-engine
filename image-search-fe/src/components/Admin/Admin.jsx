@@ -122,7 +122,7 @@ const Admin = () => {
                             className={classes.rejectButton}
                             onClick={onReject(row.id)}
                             variant="outlined"
-                            disabled={row.accepted}
+                            // disabled={row.accepted}
                           >
                             Відхилити
                           </Button>

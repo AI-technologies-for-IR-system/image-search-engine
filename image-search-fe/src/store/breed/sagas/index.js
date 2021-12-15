@@ -1,6 +1,6 @@
 import api from '../../../services/api'
 import urls from '../../../services/apiUrl'
-import { pictureSearch, setBreedName, setBreedRawData, setPhotos, textSearch, submitBreed, resetIsReady, saveRes} from '../slice'
+import { pictureSearch, setBreedName, setBreedRawData, setTextBreedResults, setTextBreedResultsNotFound, saveRes, setPhotos, textSearch, submitBreed, resetIsReady} from '../slice'
 import { put, takeLatest, call } from '@redux-saga/core/effects'
 import history from "../../../history";
 
@@ -78,7 +78,7 @@ function* saveResult({ payload }) {
 
   const { status: _, response } = yield call(api.post, url, payload)
   yield put(resetIsReady())
-  history.push('/search-page')
+  history.push('/savedRequests')
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

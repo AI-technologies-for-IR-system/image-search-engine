@@ -18,7 +18,7 @@ def create():
         isCreated = results_model.create({
             "email": request_json["email"],
             "photo": request_json["photo"],
-            "result": request_json["result"],
+            "result": request_json["actual"],
         })
         if not isCreated:
             return jsonify({"msg": "result wasn't added"}), 500

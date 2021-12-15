@@ -4,6 +4,7 @@ import FeedbackForm from './FeedbackForm/FeedbackForm'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBreedName, getPhotos, getBreedRawData, getTextBreedResults, getTextBreedResultsNotFound, getIsReady } from '../../../store/breed/selectors'
 import { actions, selectors } from '../../../store/breeds'
+import { actions as breedAction } from '../../../store/breed'
 import { useEffect } from 'react'
 
 function SearchResult(props) {
@@ -16,7 +17,12 @@ function SearchResult(props) {
 
   useEffect(() => dispatch(actions.getBreeds()), []);
 
-  const photos = useSelector(getPhotos)
+  const photos = useSelector(getPhotos);
+
+  useEffect(() => {
+    dispatch(breedAction.setBreedName(""));
+    dispatch(breedAction.resetIsReady());
+  }, []);
 
   const breedRawData = useSelector(getBreedRawData);
   const IsReady = useSelector(getIsReady);
@@ -69,7 +75,7 @@ function SearchResult(props) {
       <div className={classes.breedInfo} style={{ display: "flex", flexDirection: "column", }}>
         <p style={{textAlign: "center", fontSize: "30px" }}>Порода: <span style={{ textTransform: "capitalize" }}><b>{breedName}</b></span></p>
         <p style={{textAlign: "center", fontSize: "28px", marginTop: 0 }}>Точність: <span><b>{breedRawData && (breedRawData[0]?.val * 100).toFixed(3)}%</b></span></p>
-        <div style={{ marginBottom: "20px"}}>
+        <div style={{ marginBottom: "20px", display: breedRawData && breedRawData.length && breedRawData.length > 1 ? "block" : "none"}}>
           <p style={{textAlign: "center"}}>Ймовірності інших порід:</p>
           <table style={{ marginLeft: "auto", marginRight: "auto", minWidth: "400px", borderCollapse: "collapse" }}>
             <thead>

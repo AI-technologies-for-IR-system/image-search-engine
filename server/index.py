@@ -11,6 +11,7 @@ from blueprints.annotations.roles_required import roles_required
 from blueprints.auth import auth, jwt
 from blueprints.mlserving import ml_serving
 from blueprints.reports import reports
+from blueprints.results import results
 
 from models.users import UsersModel
 
@@ -41,6 +42,7 @@ jwt.init_app(app)
 app.register_blueprint(auth, url_prefix='/auth')
 app.register_blueprint(ml_serving, url_prefix='/ml/serving')
 app.register_blueprint(reports, url_prefix='/reports')
+app.register_blueprint(results, url_prefix='/results')
 
 @app.route('/')
 def serve_static_index():

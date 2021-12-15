@@ -14,7 +14,7 @@ from models.requests import RequestsModel
 # from connection import PostgresConnection
 
 
-requests_model = RequestsModel()
+
 
 # define ResNet50 model
 ML__ResNet50_model = ResNet50(weights='imagenet')
@@ -312,7 +312,7 @@ def get_breeds_image():
             if rawData[0]['val'] * 100 > 85:
                 is_dog = True
 
-        data = requests_model.getAll()
+        data = RequestsModel().getAll()
        
         data_accepted = [x for x in data if x['accepted'] == True]
         data_user_file = read_file_as_b64(filename_full)

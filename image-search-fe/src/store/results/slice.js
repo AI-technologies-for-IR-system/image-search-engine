@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import noop from '../../utils/noop'
 
 const initialState = {
-  reports: null,
+  results: null,
 }
 
 const { actions, reducer } = createSlice({
