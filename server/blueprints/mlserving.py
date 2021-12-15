@@ -10,6 +10,11 @@ import numpy as np
 from keras.preprocessing import image  
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
+from models.requests import RequestsModel
+# from connection import PostgresConnection
+
+
+requests_model = RequestsModel()
 
 # define ResNet50 model
 ML__ResNet50_model = ResNet50(weights='imagenet')
@@ -54,10 +59,10 @@ def get_breeds_names():
     except Exception as e:
         return jsonify({"msg": str(e)}), 400
 
-# def read_file_as_b64(path):
-#     with open(path, "rb") as image_file:
-#         encoded_string = base64.b64encode(image_file.read())
-#         return "data:image/jpeg;charset=utf-8;base64," + encoded_string.decode("utf-8")
+def read_file_as_b64(path):
+    with open(path, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+        return "data:image/jpeg;charset=utf-8;base64," + encoded_string.decode("utf-8")
 
 @ml_serving.route('/breeds/preview', methods=['GET'])
 def get_breeds_preview():
@@ -226,6 +231,46 @@ def get_breeds_preview__new():
     except Exception as e:
         return jsonify({"msg": str(e)}), 400
 
+# Create a function which builds a Keras model
+def create_model(input_shape, output_shape, model_url):
+    print("Building model")
+    # We define the model layers
+    model = tf.keras.Sequential([
+        # Layer 1 (input layer)
+        hub.KerasLayer(model_url),
+        # Layer 2 (output layer)
+        tf.keras.layers.Dense(units=output_shape,   activation="softmax") 
+    ])
+
+    # Compile the model, we define how the model is going to learn
+    model.compile(
+        loss=tf.keras.losses.CategoricalCrossentropy(), # Our model wants to reduce this (how wrong its guesses are)
+        optimizer=tf.keras.optimizers.Adam(), # A friend telling our model how to improve its guesses
+        metrics=["accuracy"] # We'd like this to go up
+    )
+
+    # Build the model
+    model.build(input_shape) # Let the model know what kind of inputs it'll be getting
+    
+    return model
+
+@ml_serving.route('/breeds/model/retrain', methods=['POST'])
+def retrain_ml_model():
+    data = request.files.get('file_img')
+    actual = request.get_json('actual')
+    data.save('/tmp/' + data.filename)
+    data = tf.data.Dataset.from_tensor_slices((tf.constant(['/tmp/' + data.filename])))
+    model = create_model()
+    model.load('../ml/mobilnetV2-9000-images.h5')
+
+    model.fit(x=data,
+                epochs=5,
+                validation_data=actual,
+                validation_freq=1)
+
+    model.save('../ml/mobilnetV2-9000-images.h5')
+
+
 @ml_serving.route('/breeds/image/predict', methods=['POST'])
 def get_breeds_image():
     try:
@@ -266,6 +311,27 @@ def get_breeds_image():
         if not is_dog:
             if rawData[0]['val'] * 100 > 85:
                 is_dog = True
+
+        data = requests_model.getAll()
+       
+        data_accepted = [x for x in data if x['accepted'] == True]
+        data_user_file = read_file_as_b64(filename_full)
+
+        data_user_file = data_user_file[data_user_file.find(','):]
+
+        is_user_setup = False
+        user_predict = ""
+
+
+        for x in data_accepted:
+            val = x['photo'][x['photo'].find(','):]
+            if data_user_file == val:
+                is_user_setup = True
+                user_predict = x['expected']
+                print("ALAAAAAAAAAARM")
+
+        if is_user_setup:
+            return jsonify({"data": user_predict, "rawData": [{"name": user_predict, "val": 1}], "isDog": True }), 200
 
         return jsonify({"data": res, "rawData": rawData, "isDog": bool(is_dog) }), 200
     except Exception as e:
