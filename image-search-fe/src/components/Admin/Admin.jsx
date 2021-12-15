@@ -35,7 +35,7 @@ const Admin = () => {
   const onAccept = (id) => () =>
     dispatch(
       actions.replyReport({
-        conlusion: 'accept',
+        conclusion: 'accept',
         id,
       }),
     )
@@ -50,7 +50,7 @@ const Admin = () => {
 
   return (
     <div>
-      <h1 style={{ fontSize: 40, textAlign: "center" }}>Admin</h1>
+      <h1 style={{ fontSize: 40, textAlign: "center" }}>Заявки</h1>
       <div>
         <Paper className={classes.root}>
           <TableContainer className={classes.container}>
@@ -79,9 +79,7 @@ const Admin = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
+                {rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((row) => {
                     return (
                       <TableRow
                         hover
@@ -115,6 +113,7 @@ const Admin = () => {
                             className={classes.acceptButton}
                             onClick={onAccept(row.id)}
                             variant="outlined"
+                            disabled={row.accepted}
                           >
                             Прийняти
                           </Button>
@@ -123,6 +122,7 @@ const Admin = () => {
                             className={classes.rejectButton}
                             onClick={onReject(row.id)}
                             variant="outlined"
+                            disabled={row.accepted}
                           >
                             Відхилити
                           </Button>

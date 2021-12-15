@@ -59,13 +59,10 @@ function* doTextSearch({ payload }) {
 
 function* submitCorrectBreed({ payload }) {
   const url = new URL(urls.submitCorrectBreed)
+  console.log("dddd");
 
-  if (payload?.isPhoto === true) {
-    payload.dogpic = toBase64(payload.dogpic)
-  } else {
-    payload.append('dogpic', toBase64(document.getElementById('dogpic').files[0]))
-  }
-  payload.append('email', localStorage.getItem('email'))
+  payload.email = localStorage.getItem('email');
+  console.log(payload);
 
   const { status: _, response } = yield call(api.post, url, payload)
   yield put(resetIsReady())
@@ -78,13 +75,3 @@ export default [
   takeLatest(textSearch, doTextSearch),
   takeLatest(submitBreed, submitCorrectBreed)
 ]
-
-const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      resolve(reader.result);
-      setLoadedImage(reader.result)
-    };
-    reader.onerror = error => reject(error);
-  });

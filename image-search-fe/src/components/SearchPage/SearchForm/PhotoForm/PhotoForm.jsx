@@ -5,7 +5,7 @@ import { useFormik } from 'formik'
 import validationSchema from './validationSchema'
 import FileInput from '../../../FileInput/FileInput'
 import { useDispatch } from 'react-redux'
-import { pictureSearch, resetBreedInfo } from '../../../../store/breed/slice'
+import { pictureSearch, resetBreedInfo, setSourcePhoto } from '../../../../store/breed/slice'
 import Camera from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
@@ -43,6 +43,7 @@ function PhotoForm() {
    formik.setFieldValue('dogpic', img);
    document.getElementById('preview-cam').setAttribute('src', dataUri);
     dispatch(resetBreedInfo());
+    dispatch(setSourcePhoto(dataUri));
   }
 
   return (

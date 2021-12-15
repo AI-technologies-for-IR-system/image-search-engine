@@ -13,7 +13,7 @@ class RequestsModel:
             self.requests = []
 
     def create(self, data: dict) -> bool:
-        data['id'] = time.time()
+        data['id'] = str(time.time())
         data['accepted'] = False
         if data['email'] and data['photo'] and data['actual'] and data['expected']:
             self.requests.append(data.copy())
@@ -22,13 +22,13 @@ class RequestsModel:
         return False
 
     def get(self, keys: dict):
-        email = keys['email']
-        request_id = keys['id']
-        if email:
+        email = keys.get('email')
+        request_id = keys.get('id')
+        if email is not None:
             user_requests = list(filter(lambda d: d['email'] == email, self.requests))
             return user_requests
         elif request_id:
-            user_request = next((item for item in self.requests if item["id"] == request_id), None)
+            user_request = next((item for item in self.requests if str(item["id"]) == request_id), None)
             return user_request
         return None
 
@@ -59,6 +59,7 @@ class RequestsModel:
     def delete(self, keys: dict) -> bool:
         request_id = keys['id']
         if request_id:
+
             user_request = self.get({'id': request_id})
             if user_request is not None:
                 try:

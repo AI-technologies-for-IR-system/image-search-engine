@@ -9,22 +9,23 @@ import validationSchema from './validationSchema'
 import {submitBreed} from '../../../../store/breed/slice'
 import Search from '@material-ui/icons/Search'
 import {useDispatch, useSelector} from "react-redux";
-import {getBreedName} from "../../../../store/breed/selectors";
+import {getBreedName, getSourcePhoto} from "../../../../store/breed/selectors";
 
 function FeedbackForm() {
   const formClasses = useStyles(formStyles)
   const classes = useStyles(styles)
   const dispatch = useDispatch()
+  const breedName = useSelector(getBreedName);
+  const sourcePhoto = useSelector(getSourcePhoto);
 
   const formik = useFormik({
     initialValues: {
       expected: null,
-      actual: null
     },
     validationSchema,
     onSubmit: (values) => {
-      values.expected = useSelector(getBreedName)
-      dispatch(submitBreed(values))
+      console.log("forma subm");
+      dispatch(submitBreed({ ...values, actual: breedName, photo: sourcePhoto }))
     },
   })
 

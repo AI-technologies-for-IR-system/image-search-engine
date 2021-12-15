@@ -23,3 +23,8 @@ export const getIsReady = createSelector(
   getRoot,
   (root) => root.breed.isReady,
 )
+
+export const getSourcePhoto = createSelector(
+  getRoot,
+  (root) => root.breed.sourcePhoto,
+)

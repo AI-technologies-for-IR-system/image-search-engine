@@ -5,7 +5,7 @@ import { useFormik } from 'formik'
 import validationSchema from './validationSchema'
 import FileInput from '../../../FileInput/FileInput'
 import { useDispatch } from 'react-redux'
-import { pictureSearch, resetIsReady } from '../../../../store/breed/slice'
+import { pictureSearch, resetIsReady, setSourcePhoto } from '../../../../store/breed/slice'
 
 import { useState } from 'react'
 
@@ -29,7 +29,8 @@ function PictureForm() {
     reader.readAsDataURL(file);
     reader.onload = () => {
       resolve(reader.result);
-      setLoadedImage(reader.result)
+      setLoadedImage(reader.result);
+      dispatch(setSourcePhoto(reader.result));
     };
     reader.onerror = error => reject(error);
   });

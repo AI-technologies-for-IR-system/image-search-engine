@@ -7,6 +7,7 @@ const initialState = {
     breedName: '',
     photos: [],
     isReady: false,
+    sourcePhoto: ''
   },
   requestErrors: null,
 }
@@ -34,6 +35,10 @@ const { actions, reducer } = createSlice({
       ...state,
       breed: { ...state.breed, photos: payload },
     }),
+    setSourcePhoto: (state, { payload }) => ({
+      ...state,
+      breed: { ...state.breed, sourcePhoto: payload },
+    }),
     resetBreedInfo: () => initialState,
   },
 })
@@ -48,5 +53,6 @@ export const {
   setPhotos,
   resetBreedInfo,
   resetIsReady,
-  submitBreed
+  submitBreed,
+  setSourcePhoto
 } = actions
