@@ -14,6 +14,7 @@ import SimpleBackdrop from '../components/SimpleBackdrop/SimpleBackdrop'
 import NotFound from '../components/NotFound/NotFound'
 import ScrollToTop from './scroll'
 import Admin from '../components/Admin/Admin'
+import Results from '../components/Results/Results'
 import Breeds from '../components/Breeds/Breeds'
 import SearchPage from '../components/SearchPage/SearchPage'
 
@@ -29,6 +30,9 @@ const ImplicitExplicitRouter = ({ history }) => (
       </Route>
       <Route path="/admin">
         <Admin />
+      </Route>
+      <Route path="/savedRequests">
+        <Results />
       </Route>
       <Route path="/breeds">
         <Breeds />

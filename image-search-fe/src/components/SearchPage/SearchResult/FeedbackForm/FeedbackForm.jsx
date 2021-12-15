@@ -24,7 +24,6 @@ function FeedbackForm() {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("forma subm");
       dispatch(submitBreed({ ...values, actual: breedName, photo: sourcePhoto }))
     },
   })

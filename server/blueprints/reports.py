@@ -33,7 +33,7 @@ def create():
 @cross_origin()
 def show_reports():
     try:
-        returned_data = requests_model.getAll()
+        returned_data = sorted(requests_model.getAll(), key=lambda x: x['accepted'])
     except Exception as e:
         return jsonify({"msg": str(e)}), 500
     return jsonify(returned_data), 200
