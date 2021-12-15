@@ -6,7 +6,7 @@ import styles from './styles'
 import useStyles from '../../../../utils/hooks/useStyles'
 import { useFormik } from 'formik'
 import validationSchema from './validationSchema'
-import {submitBreed} from '../../../../store/breed/slice'
+import {submitBreed, saveRes} from '../../../../store/breed/slice'
 import Search from '@material-ui/icons/Search'
 import {useDispatch, useSelector} from "react-redux";
 import {getBreedName, getSourcePhoto} from "../../../../store/breed/selectors";
@@ -28,8 +28,16 @@ function FeedbackForm() {
     },
   })
 
+  const onAccept = () => () =>
+    dispatch(
+      saveRes({
+        actual: breedName, photo: sourcePhoto
+      }),
+    )
+
   return (
-    <form
+    <div>
+      <form
       className={`${classes.form} ${formClasses.form}`}
       onSubmit={formik.handleSubmit}
     >
@@ -39,7 +47,7 @@ function FeedbackForm() {
         id="expected"
         name="expected"
         label="Порода собаки"
-        placeholder="Вкажіть породу собаки, якщо не згодні з результатами"
+        placeholder="Вкажіть породу собаки, якщо не згодні з результатами, "
         variant="outlined"
         value={formik.values.email}
         onChange={formik.handleChange}
@@ -62,6 +70,14 @@ function FeedbackForm() {
         Відправити
       </Button>
     </form>
+      <Button
+        className={classes.acceptButton}
+        onClick={onAccept()}
+        variant="outlined"
+      >
+        Зберегти результати
+      </Button>
+    </div>
   )
 }
 

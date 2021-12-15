@@ -1,6 +1,6 @@
 import api from '../../../services/api'
 import urls from '../../../services/apiUrl'
-import { pictureSearch, setBreedName, setBreedRawData, setPhotos, textSearch, submitBreed, resetIsReady} from '../slice'
+import { pictureSearch, setBreedName, setBreedRawData, setPhotos, textSearch, submitBreed, resetIsReady, saveRes} from '../slice'
 import { put, takeLatest, call } from '@redux-saga/core/effects'
 import history from "../../../history";
 
@@ -69,9 +69,22 @@ function* submitCorrectBreed({ payload }) {
   history.push('/search-page')
 }
 
+function* saveResult({ payload }) {
+  const url = new URL(urls.saveResult)
+  console.log("dddd");
+
+  payload.email = localStorage.getItem('email');
+  console.log(payload);
+
+  const { status: _, response } = yield call(api.post, url, payload)
+  yield put(resetIsReady())
+  history.push('/search-page')
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
   takeLatest(pictureSearch, doPictureSearch),
   takeLatest(textSearch, doTextSearch),
-  takeLatest(submitBreed, submitCorrectBreed)
+  takeLatest(submitBreed, submitCorrectBreed),
+  takeLatest(saveRes, saveResult)
 ]

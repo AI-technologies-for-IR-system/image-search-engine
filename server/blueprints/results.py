@@ -30,7 +30,10 @@ def create():
 @results.route('/', methods=['GET'])
 @cross_origin()
 def show_results():
-    email = request.json.get('email', None)
+    email = request.args.get('name')
+    if email is None:
+        return jsonify({"msg": "de neim?"}), 400
+
     try:
         returned_data = results_model.get({'email': email})
     except Exception as e:

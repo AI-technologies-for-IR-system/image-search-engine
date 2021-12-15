@@ -19,6 +19,7 @@ const { actions, reducer } = createSlice({
     pictureSearch: noop,
     textSearch: noop,
     submitBreed: noop,
+    saveRes: noop,
     resetIsReady: (state) => ({
       ...state,
       breed: { ...state.breed, isReady: false, }
@@ -54,5 +55,6 @@ export const {
   resetBreedInfo,
   resetIsReady,
   submitBreed,
+  saveRes,
   setSourcePhoto
 } = actions
