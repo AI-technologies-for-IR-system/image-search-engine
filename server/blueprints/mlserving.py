@@ -211,8 +211,6 @@ def get_breeds_preview__new():
         if opa < 0:
             return jsonify({"msg": "not found"}), 404
 
-        q = os.listdir("../dataset/dogs_breed")[opa]
-
         res = [{
             "name": x.replace("_", " "),
             "photo": "/dataset_new/" + labels_csv.loc[labels_csv['breed'] == x].iloc[0].id + ".jpg"
