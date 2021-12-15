@@ -1,18 +1,28 @@
 import styles from './styles'
 import useStyles from '../../../utils/hooks/useStyles'
 import FeedbackForm from './FeedbackForm/FeedbackForm'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getBreedName, getPhotos, getBreedRawData, getIsReady } from '../../../store/breed/selectors'
+import { actions, selectors } from '../../../store/breeds'
+import { useEffect } from 'react'
 
 function SearchResult(props) {
   const classes = useStyles(styles)
 
   const breedName = useSelector(getBreedName)
+  const breeds = useSelector(selectors.getBreeds) ?? []
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(actions.getBreeds()), []);
 
   const photos = useSelector(getPhotos)
 
   const breedRawData = useSelector(getBreedRawData);
   const IsReady = useSelector(getIsReady);
+
+
+  const breedObj = breeds?.filter(x => x.name === breedName)[0]?.photo
+  // console.log(breeds);
 
   if (IsReady && breedName === "") {
     return (
@@ -44,7 +54,7 @@ function SearchResult(props) {
               </tr>
             </thead>
             <tbody>
-              {breedRawData?.map(x => (
+              {breedRawData?.slice(1)?.map(x => (
                 <tr id={x.name}>
                   <td style={{padding: "5px", borderBottom: "1px solid black", textTransform: "capitalize"}}>{x.name}</td>
                   <td style={{padding: "5px", borderBottom: "1px solid black"}}>{(x.val * 100).toFixed(3) === "0.000" ? ">0.001" : (x.val * 100).toFixed(3) }</td>
@@ -52,6 +62,12 @@ function SearchResult(props) {
               ))}
             </tbody>
           </table>
+          {breedObj && (
+            <>
+              <p style={{textAlign: "center"}}>Фотографія визначеної породи ({breedName}) з датасету:</p>
+              <img style={{ display: "block", marginLeft: "auto", marginRight: "auto", maxHeight: "300px"}} src={breedObj} />   
+            </>
+          )}
         </div>
         {props.typeSearch !== "text" && <FeedbackForm />}
         {/* <div className={classes.photoList}> // TODO: remove comment!!!!!

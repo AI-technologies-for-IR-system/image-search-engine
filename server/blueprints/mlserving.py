@@ -160,6 +160,68 @@ string_labels = np.array(labels_csv.breed)
 # get a list of unique labels
 unique_labels = np.unique(string_labels)
 
+@ml_serving.route('/breeds/preview_new', methods=['GET'])
+def get_breeds_preview_new():
+    try:
+        print(unique_labels)
+
+        res = [{
+            "name": x.replace("_", " "),
+            "count": len(labels_csv.loc[labels_csv['breed'] == x]),
+            "photo": "/dataset_new/" + labels_csv.loc[labels_csv['breed'] == x].iloc[0].id + ".jpg"
+            # "photo": read_file_as_b64("../dataset/dogs_breed/" + x + "/" + os.listdir("../dataset/dogs_breed/" + x)[0])
+        } for x in unique_labels]
+        # print(res)
+
+        return jsonify({"data": res}), 200
+    except Exception as e:
+        # print(e)
+        return jsonify({"msg": str(e)}), 400
+
+@ml_serving.route('/breeds/names/find_new', methods=['GET'])
+def get_breeds_preview__new():
+    try:
+        r = request.args.get('name')
+        if r is None:
+            return jsonify({"msg": "de neim?"}), 400
+
+        all_names = unique_labels
+
+        user_data = r.strip().lower().split()
+
+        stop = False
+        # bread = ""
+        opa = -1
+        results = []
+        for i in range(len(all_names)):
+            stop = False
+            # if stop:
+            #     break
+            for j in range(len(user_data)):
+                if stop:
+                    break
+                spltd = all_names[i].strip().lower().split()
+                for k in range(len(spltd)):
+                    if user_data[j] == spltd[k]:
+                        opa = 1
+                        stop = True
+                        results.append(all_names[i])
+                        break
+
+        if opa < 0:
+            return jsonify({"msg": "not found"}), 404
+
+        q = os.listdir("../dataset/dogs_breed")[opa]
+
+        res = [{
+            "name": x.replace("_", " "),
+            "photo": "/dataset_new/" + labels_csv.loc[labels_csv['breed'] == x].iloc[0].id + ".jpg"
+        } for x in results]
+
+        return jsonify({"data": res}), 200
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 400
+
 @ml_serving.route('/breeds/image/predict', methods=['POST'])
 def get_breeds_image():
     try:
@@ -171,8 +233,6 @@ def get_breeds_image():
 
         is_dog = ML__dog_detector(filename_full)
 
-        if not is_dog:
-            return jsonify({"isDog": bool(is_dog) }), 200
 
         # image = process_image('/tmp/' + data.filename)
         # print(image)
@@ -199,6 +259,9 @@ def get_breeds_image():
         rawData = rawData[:10]
 
 
+        if not is_dog:
+            if rawData[0]['val'] * 100 > 85:
+                is_dog = True
 
         return jsonify({"data": res, "rawData": rawData, "isDog": bool(is_dog) }), 200
     except Exception as e:
