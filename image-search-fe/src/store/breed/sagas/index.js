@@ -19,15 +19,16 @@ function* doPictureSearch({ payload }) {
 
   const { status: _, response } = yield call(api.postMultipart, urls.predictBreedByPhoto, formData)
 
-  const dataRaw = response.rawData.map(x => ({ ...x, name: x.name.replaceAll('_', ' ') })).sort((x, y) => y.val - x.val);
 
   // console.log("hoba");
   // console.log(dataRaw);
-
-  yield put(
-    setBreedName(response.data.replaceAll('_', ' '))
-  );
-  yield put(setBreedRawData(dataRaw));
+  if (!response.isDog) {
+    yield put(setBreedName(""));
+  } else {
+    yield put(setBreedName(response.data.replaceAll('_', ' ')));
+    const dataRaw = response.rawData.map(x => ({ ...x, name: x.name.replaceAll('_', ' ') })).sort((x, y) => y.val - x.val);
+    yield put(setBreedRawData(dataRaw));
+  }
 
   // // TODO: request from BE with payload
   // const response = { breed: BreedMock }
