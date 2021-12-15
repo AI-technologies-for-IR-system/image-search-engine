@@ -30,7 +30,7 @@ def create():
 @results.route('/', methods=['GET'])
 @cross_origin()
 def show_results():
-    email = request.args.get('name')
+    email = request.args.get('email')
     if email is None:
         return jsonify({"msg": "de neim?"}), 400
 
