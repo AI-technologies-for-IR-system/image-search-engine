@@ -6,19 +6,25 @@ import styles from './styles'
 import useStyles from '../../../../utils/hooks/useStyles'
 import { useFormik } from 'formik'
 import validationSchema from './validationSchema'
+import {submitBreed} from '../../../../store/breed/slice'
 import Search from '@material-ui/icons/Search'
+import {useDispatch, useSelector} from "react-redux";
+import {getBreedName} from "../../../../store/breed/selectors";
 
 function FeedbackForm() {
   const formClasses = useStyles(formStyles)
   const classes = useStyles(styles)
+  const dispatch = useDispatch()
 
   const formik = useFormik({
     initialValues: {
-      dogpic: '',
+      expected: null,
+      actual: null
     },
     validationSchema,
     onSubmit: (values) => {
-      // TODO: implement submit logic
+      values.expected = useSelector(getBreedName)
+      dispatch(submitBreed(values))
     },
   })
 
@@ -30,8 +36,8 @@ function FeedbackForm() {
       <TextField
         className={formClasses.field}
         fullWidth
-        id="dogpic"
-        name="dogpic"
+        id="expected"
+        name="expected"
         label="Порода собаки"
         placeholder="Вкажіть породу собаки, якщо не згодні з результатами"
         variant="outlined"

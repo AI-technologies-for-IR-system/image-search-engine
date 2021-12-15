@@ -1,8 +1,11 @@
 import api from '../../../services/api'
 import urls from '../../../services/apiUrl'
-import { pictureSearch, setBreedName, setBreedRawData, setPhotos, textSearch } from '../slice'
+import { pictureSearch, setBreedName, setBreedRawData, setPhotos, textSearch, submitBreed, resetIsReady} from '../slice'
 import { put, takeLatest, call } from '@redux-saga/core/effects'
+import history from "../../../history";
 
+import { getBreedName, } from '../../../store/breed/selectors'
+import { useSelector, useDispatch } from 'react-redux'
 const BreedMock = 'BreedMock'
 const PhotosMock = new Array(9).fill(
   'https://buffy.mlpforums.com/blog-0480907001424893244.png',
@@ -54,8 +57,34 @@ function* doTextSearch({ payload }) {
   // yield put(setPhotos(response.photos))
 }
 
+function* submitCorrectBreed({ payload }) {
+  const url = new URL(urls.submitCorrectBreed)
+
+  if (payload?.isPhoto === true) {
+    payload.dogpic = toBase64(payload.dogpic)
+  } else {
+    payload.append('dogpic', toBase64(document.getElementById('dogpic').files[0]))
+  }
+  payload.append('email', localStorage.getItem('email'))
+
+  const { status: _, response } = yield call(api.post, url, payload)
+  yield put(resetIsReady())
+  history.push('/search-page')
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
   takeLatest(pictureSearch, doPictureSearch),
   takeLatest(textSearch, doTextSearch),
+  takeLatest(submitBreed, submitCorrectBreed)
 ]
+
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      resolve(reader.result);
+      setLoadedImage(reader.result)
+    };
+    reader.onerror = error => reject(error);
+  });
