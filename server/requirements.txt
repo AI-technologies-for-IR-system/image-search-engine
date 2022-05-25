@@ -85,7 +85,7 @@ pyasn1-modules==0.2.8
 pycocotools-fix==2.0.0.9
 pycparser==2.21
 Pygments==2.10.0
-PyJWT==2.3.0
+PyJWT==2.4.0
 pyparsing==3.0.6
 pyrsistent==0.18.0
 python-dateutil==2.8.2
